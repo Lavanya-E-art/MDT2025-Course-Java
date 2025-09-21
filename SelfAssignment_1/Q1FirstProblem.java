@@ -1,4 +1,12 @@
-
+/*calculate,
+(a) the volume of the Earth in cubic miles
+(b) the volume of the Sun in cubic miles
+(c) the ratio of the volume of the Sun to the volume of the Earth
+and then output the three values. Treat both the earth and sun as spheres. The volume of a
+sphere is given by the formula 4 pi r^3/3 where r is the radius.
+Run the code you have written, and turn in both your code and the output of the program. The
+output should say something like: The volume of the Earth is X cubic miles, the volume of the
+sun is Y cubic miles, and the ratio of the volume of the Sun to the volume of the Earth is Z.*/
 
 public class Q1FirstProblem {
 
@@ -24,3 +32,8 @@ public class Q1FirstProblem {
         System.out.println("and the ratio of the volume of the Sun to the volume of the Earth is " + ratio + ".");
     }
 }
+
+/*Output
+ The volume of the Earth is 2.2984729611703882E11 cubic miles,
+The volume of the Sun is 3.388807851993121E17 cubic miles,
+and the ratio of the volume of the Sun to the volume of the Earth is 1474373.5990122468.*/
