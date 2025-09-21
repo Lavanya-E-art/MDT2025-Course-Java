@@ -12,6 +12,6 @@ Contains project source code, documentation, and exercises/assignments for evalu
 ## SELF ASSIGNMENT 1  
 
 - **QUESTION 1** → solved by *Tooba Arif* (ESE **7224112**)  
-- **QUESTION 2** → solved by *Nayana Nagaraj* (MDT)  
+- **QUESTION 2** → solved by *Nayana Nagaraj* (MDT **7223979**)  
 - **QUESTION 3** → solved by *Lavanya Eswarappa* (MDT **7224098**)  
 - **QUESTION 4** → solved by *Keya Shah* (MDT **7224656**)  
