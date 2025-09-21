@@ -1,6 +1,6 @@
-package firstproblem;
 
-public class FirstProblem {
+
+public class Q1FirstProblem {
 
 	public static void main(String[] args) {
         // Diameters in miles
