@@ -24,3 +24,6 @@ public class Q2Primes {
 		}
 	}
 }
+
+Output for this solution 2:
+47
