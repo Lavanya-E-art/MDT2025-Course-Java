@@ -7,7 +7,7 @@ consonants. */
 
 //SOLUTION TO PROBLEM 3:
 
-public class StringCharacters {
+public class Q3CountCharacters {
     public static void main(String[] args) {
         String text = "To be or not to be, that is the question;"
                 + "Whether `tis nobler in the mind to suffer"
