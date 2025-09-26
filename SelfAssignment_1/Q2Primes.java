@@ -6,7 +6,7 @@ Readings: Language Basics : Control Flow Statements*/
   (b) Does not require the isPrime variable.
   (c) When testing whether an integer is prime, it is sufficient to try and divide by integers up to the square root of the number being tested*/
 	
-SOLUTION OF PROBLEM 2:
+// SOLUTION OF PROBLEM 2:
 
 public class Q2Primes {
 	public static void main(String[] args) {
