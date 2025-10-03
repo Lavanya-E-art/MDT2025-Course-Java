@@ -1,0 +1,58 @@
+                    ┌──────────────────┐
+                    │     Resource      │  (abstract/base class)
+                    └──────────────────┘
+                             ▲
+        ┌────────────────────┼───────────────────────┐
+        │                    │                       │
+┌──────────────────┐  ┌──────────────────┐   ┌──────────────────┐
+│ HumanResource    │  │ SoftwareResource │   │ MaterialResource │
+│ - skill: String  │  │ - version: String│   │ - quantity: int  │
+│ - hours: int     │  │ - license: int   │   │ - costPerUnit:int│
+└──────────────────┘  └──────────────────┘   └──────────────────┘
+                                             
+                        ┌──────────────────┐
+                        │       AGV        │
+                        │ - vendor: String │
+                        │ - model: String  │
+                        │ - capacity: float│
+                        │ - speed: float   │
+                        └──────────────────┘
+
+
+                    ┌──────────────────┐
+                    │    Operation      │ (abstract/base class)
+                    │ - id: String      │
+                    │ - name: String    │
+                    │ - duration: int   │
+                    └──────────────────┘
+                             ▲
+        ┌────────────────────┼───────────────────────┐
+        │                    │                       │
+┌──────────────────┐  ┌──────────────────┐   ┌──────────────────┐
+│ HumanOperation   │  │ TransportOperation│   │   (other ops...) │
+│ uses Human/Softw │  │ uses AGV/Material│   │                  │
+└──────────────────┘  └──────────────────┘   └──────────────────┘
+
+
+                    ┌──────────────────┐
+                    │     Process       │ (abstract/base class)
+                    │ - processId: Str │
+                    └──────────────────┘
+                             ▲
+        ┌────────────────────┼───────────────────────┐
+        │                    │                       │
+┌──────────────────┐  ┌──────────────────┐
+│ IndustrialProcess │  │ ManagementProcess│
+│ contains Ops[]    │  │ contains Ops[]   │
+└──────────────────┘  └──────────────────┘
+
+
+                    ┌──────────────────┐
+                    │       Main        │
+                    └──────────────────┘
+                          │
+                          ▼
+                Creates Resources, Operations,
+                Assigns Resources → Operations,
+                Adds Operations → Processes,
+                Calls printSummary()
