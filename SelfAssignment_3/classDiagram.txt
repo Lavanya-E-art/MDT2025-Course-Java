@@ -1,58 +1,113 @@
-                    ┌──────────────────┐
-                    │     Resource      │  (abstract/base class)
-                    └──────────────────┘
-                             ▲
-        ┌────────────────────┼───────────────────────┐
-        │                    │                       │
-┌──────────────────┐  ┌──────────────────┐   ┌──────────────────┐
-│ HumanResource    │  │ SoftwareResource │   │ MaterialResource │
-│ - skill: String  │  │ - version: String│   │ - quantity: int  │
-│ - hours: int     │  │ - license: int   │   │ - costPerUnit:int│
-└──────────────────┘  └──────────────────┘   └──────────────────┘
-                                             
-                        ┌──────────────────┐
-                        │       AGV        │
-                        │ - vendor: String │
-                        │ - model: String  │
-                        │ - capacity: float│
-                        │ - speed: float   │
-                        └──────────────────┘
+┌────────────────────────────────────────────┐
+│               Resource (abstract)           │
+├────────────────────────────────────────────┤
+│ - description: String                      │
+│ - nominalTime: int                         │
+├────────────────────────────────────────────┤
+│ + Resource(description: String, nominalTime: int) │
+│ + getDescription(): String                 │
+│ + getNominalTime(): int                    │
+│ + type(): String [abstract]                │
+└────────────────────────────────────────────┘
+                     ▲
+         ┌───────────┴────────────┐
+         │                        │
+┌─────────────────────────┐   ┌────────────────────────────┐
+│     HumanResource        │   │     NonHumanResource (abs) │
+├─────────────────────────┤   ├────────────────────────────┤
+│ - skill: String          │   │ (inherits description, time)│
+├─────────────────────────┤   ├────────────────────────────┤
+│ + HumanResource(description:String, nominalTime:int, skill:String) │
+│ + getSkill(): String     │   │ + NonHumanResource(description:String, nominalTime:int) │
+│ + type(): String          │   │ + type(): String                        │
+│ + toString(): String      │   └────────────────────────────┘
+└─────────────────────────┘
+                                     ▲
+        ┌────────────────────────────┼─────────────────────────────────────────────┐
+        │                            │                                             │
+┌─────────────────────────┐  ┌─────────────────────────┐  ┌────────────────────────────┐
+│   MaterialResource       │  │   SoftwareResource      │  │    HardwareResource        │
+├─────────────────────────┤  ├─────────────────────────┤  ├────────────────────────────┤
+│ - quantity: int          │  │ - version: String       │  │ - brand: String            │
+├─────────────────────────┤  ├─────────────────────────┤  ├────────────────────────────┤
+│ + MaterialResource(description:String, nominalTime:int, quantity:int) │
+│ + getQuantity(): int     │  │ + SoftwareResource(description:String, nominalTime:int, version:String) │
+│ + type(): String          │  │ + getVersion(): String  │  │ + HardwareResource(description:String, nominalTime:int, brand:String) │
+│ + toString(): String      │  │ + type(): String        │  │ + getBrand(): String       │
+│                           │  │ + toString(): String    │  │ + type(): String           │
+│                           │  │                         │  │ + toString(): String       │
+└─────────────────────────┘  └─────────────────────────┘  └───────────▲────────────────┘
+                                                                       │
+                                                          ┌────────────┴──────────────┐
+                                                          │           AGV             │
+                                                          ├───────────────────────────┤
+                                                          │ - id: String              │
+                                                          │ - batteryLoad: double     │
+                                                          │ - consumption: double     │
+                                                          │ - chargingTime: int       │
+                                                          │ - position: String        │
+                                                          │ - maxSpeed: float         │
+                                                          │ - actSpeed: float         │
+                                                          ├───────────────────────────┤
+                                                          │ + AGV(description:String, nominalTime:int, brand:String, id:String, batteryLoad:double, │
+                                                          │        consumption:double, chargingTime:int, position:String, maxSpeed:float, actSpeed:float) │
+                                                          │ + setData(type:String, value:Object): void    │
+                                                          │ + getData(): String                          │
+                                                          │ + getConsumption(): double                   │
+                                                          │ + type(): String                             │
+                                                          │ + toString(): String                         │
+                                                          └───────────────────────────┘
 
 
-                    ┌──────────────────┐
-                    │    Operation      │ (abstract/base class)
-                    │ - id: String      │
-                    │ - name: String    │
-                    │ - duration: int   │
-                    └──────────────────┘
-                             ▲
-        ┌────────────────────┼───────────────────────┐
-        │                    │                       │
-┌──────────────────┐  ┌──────────────────┐   ┌──────────────────┐
-│ HumanOperation   │  │ TransportOperation│   │   (other ops...) │
-│ uses Human/Softw │  │ uses AGV/Material│   │                  │
-└──────────────────┘  └──────────────────┘   └──────────────────┘
+                          ┌────────────────────────────┐
+                          │   IOperation (abstract)    │
+                          ├────────────────────────────┤
+                          │ - id: String               │
+                          │ - description: String      │
+                          │ - nominalTime: int         │
+                          │ - resources: List<Resource>│
+                          ├────────────────────────────┤
+                          │ + IOperation(id, desc, time)│
+                          │ + addResource(res: Resource): void │
+                          │ + getDuration(): int       │
+                          │ + getDescription(): String  │
+                          │ + setData(field, value): void │
+                          │ + getData(): String         │
+                          │ + getEnergyConsumption(): double (abstract) │
+                          │ + type(): String (abstract) │
+                          └──────────────┬──────────────┘
+                                         │
+                 ┌───────────────────────┼────────────────────────────┐
+                 │                                                │
+┌────────────────────────────┐                   ┌────────────────────────────┐
+│     HumanOperation         │                   │    TransportOperation      │
+├────────────────────────────┤                   ├────────────────────────────┤
+│ (inherits IOperation)      │                   │ (inherits IOperation)      │
+├────────────────────────────┤                   ├────────────────────────────┤
+│ + getEnergyConsumption(): double │              │ + getEnergyConsumption(): double │
+│ + type(): String           │                   │ + type(): String           │
+└────────────────────────────┘                   └────────────────────────────┘
 
 
-                    ┌──────────────────┐
-                    │     Process       │ (abstract/base class)
-                    │ - processId: Str │
-                    └──────────────────┘
-                             ▲
-        ┌────────────────────┼───────────────────────┐
-        │                    │                       │
-┌──────────────────┐  ┌──────────────────┐
-│ IndustrialProcess │  │ ManagementProcess│
-│ contains Ops[]    │  │ contains Ops[]   │
-└──────────────────┘  └──────────────────┘
-
-
-                    ┌──────────────────┐
-                    │       Main        │
-                    └──────────────────┘
-                          │
-                          ▼
-                Creates Resources, Operations,
-                Assigns Resources → Operations,
-                Adds Operations → Processes,
-                Calls printSummary()
+                         ┌────────────────────────────┐
+                         │     Process (abstract)     │
+                         ├────────────────────────────┤
+                         │ - id: String               │
+                         │ - operations: List<IOperation> │
+                         ├────────────────────────────┤
+                         │ + Process(id: String)      │
+                         │ + addOperation(op: IOperation): void │
+                         │ + printSummary(): void (abstract) │
+                         └──────────────┬─────────────┘
+                                        │
+             ┌──────────────────────────┼──────────────────────────┐
+             │                                                     │
+┌────────────────────────────┐                       ┌────────────────────────────┐
+│   IndustrialProcess         │                       │   ManagementProcess        │
+├────────────────────────────┤                       ├────────────────────────────┤
+│ (inherits Process)          │                       │ (inherits Process)         │
+├────────────────────────────┤                       ├────────────────────────────┤
+│ + processDuration(): int    │                       │ + printSummary(): void     │
+│ + processResources(): double│                       └────────────────────────────┘
+│ + printSummary(): void      │
+└────────────────────────────┘
