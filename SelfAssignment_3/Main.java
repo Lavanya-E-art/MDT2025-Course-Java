@@ -45,4 +45,18 @@ public class Main {
         mproc.printSummary();
     }
 }
+/*<-- Industrial Process: P001 -->
+Total Duration: 75 minutes
+Energy Consumption: 2.5 kWh
+Operations: 
+   -> Operation ID: HO01, Desc: Welding Operation, Time: 45 min, Resources: 2
+    -> Human Resource | Worker A | Skill: Welding | Time: 120
+    -> Human Resource | Supervisor | Skill: Management | Time: 60
+   -> Operation ID: TO01, Desc: Transport Steel, Time: 30 min, Resources: 1
+    -> Autonomous Guided Vehicle (AGV) | AGV Model X | Brand: AGVCorp | AGV ID: AGV01, Battery: 90.0%, Consumption: 5.0 kWh/h, Charging Time: 60 min, Position: Dock, Max Speed: 2.5, Actual Speed: 2.0
+
+<-- Management Process: M001 -->
+Operations: 
+   -> Operation ID: HO02, Desc: Designing CAD, Time: 60 min, Resources: 1
+    -> Software Resource | CAD Software | Version: v2.5 | Time: 30*/
 
