@@ -1,10 +1,13 @@
 import java.io.Serializable;
 
+/**
+ * Represents a smart storage vehicle in the system.
+ */
 public class StorageVehicle implements Serializable {
     private String id;
     private String status;
     private double load;
-    private transient LogManager logs; // transient to skip serialization
+    private transient LogManager logs;
 
     public StorageVehicle(String id) {
         this.id = id;
@@ -12,20 +15,13 @@ public class StorageVehicle implements Serializable {
         this.load = 0.0;
     }
 
-    // Setter for logger (so Main can inject one shared logger)
-    public void setLogger(LogManager logs) {
-        this.logs = logs;
-    }
+    public void setLogger(LogManager logs) { this.logs = logs; }
 
     public String getId() { return id; }
-    public String getStatus() { return status; }
     public double getLoad() { return load; }
 
-    public void setStatus(String status) { this.status = status; }
-    public void setLoad(double load) { this.load = load; }
-
     public void performTask(String taskName) {
-        System.out.println("Vehicle " + id + " performing task: " + taskName);
+        System.out.println("Vehicle " + id + " performing: " + taskName);
         this.status = "WORKING";
         if (logs != null) logs.log("vehicle", id, "Started task: " + taskName);
     }
@@ -33,7 +29,7 @@ public class StorageVehicle implements Serializable {
     public void finishTask() {
         this.status = "IDLE";
         System.out.println("Vehicle " + id + " finished task.");
-        if (logs != null) logs.log("vehicle", id, "Finished task, now IDLE.");
+        if (logs != null) logs.log("vehicle", id, "Finished task. Now IDLE.");
     }
 
     @Override

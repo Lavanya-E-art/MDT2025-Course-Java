@@ -1,262 +1,139 @@
-// import java.io.*;
-// import java.text.SimpleDateFormat;
-// import java.util.Date;
-// import java.util.regex.*;
-
-// public class LogManager {
-//     private final File rootDir;
-//     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-//     public LogManager(String dirName) {
-//         rootDir = new File(dirName);
-//         new File(rootDir, "vehicles").mkdirs();
-//         new File(rootDir, "stations").mkdirs();
-//         new File(rootDir, "system").mkdirs();
-//         new File(rootDir, "archive").mkdirs();
-//     }
-
-//     private String today() {
-//         return dateFormat.format(new Date());
-//     }
-
-//     // --- Write log using character stream ---
-//     public void logText(String type, String name, String message) {
-//         try {
-//             String fileName = type + "-" + name + "-" + today() + ".log";
-//             File logFile = new File(rootDir, type + "s/" + fileName);
-
-//             FileWriter fw = new FileWriter(logFile, true);
-//             BufferedWriter bw = new BufferedWriter(fw);
-//             bw.write("[" + new Date() + "] " + message);
-//             bw.newLine();
-//             bw.close();
-
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//     }
-
-//     // --- Read logs based on regex pattern (name or date) ---
-//     public void openLog(String type, String regex) {
-//         File folder = new File(rootDir, type + "s");
-//         Pattern pattern = Pattern.compile(regex);
-
-//         File[] files = folder.listFiles();
-//         if (files == null) return;
-
-//         for (File f : files) {
-//             if (pattern.matcher(f.getName()).find()) {
-//                 System.out.println("\n--- Reading " + f.getName() + " ---");
-//                 try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-//                     String line;
-//                     while ((line = br.readLine()) != null) {
-//                         System.out.println(line);
-//                     }
-//                 } catch (IOException e) {
-//                     e.printStackTrace();
-//                 }
-//             }
-//         }
-//     }
-
-//     // --- Move (archive) logs manually ---
-//     public void archiveLog(String type, String namePart) {
-//         File folder = new File(rootDir, type + "s");
-//         File archive = new File(rootDir, "archive");
-//         archive.mkdirs();
-
-//         File[] files = folder.listFiles();
-//         if (files == null) return;
-
-//         for (File f : files) {
-//             if (f.getName().contains(namePart)) {
-//                 File dest = new File(archive, f.getName());
-//                 if (f.renameTo(dest)) {
-//                     System.out.println("Archived: " + f.getName());
-//                 }
-//             }
-//         }
-//     }
-
-//     // --- Delete logs by keyword ---
-//     public void deleteLogs(String type, String keyword) {
-//         File folder = new File(rootDir, type + "s");
-//         File[] files = folder.listFiles();
-//         if (files == null) return;
-
-//         for (File f : files) {
-//             if (f.getName().contains(keyword)) {
-//                 if (f.delete()) {
-//                     System.out.println("Deleted: " + f.getName());
-//                 }
-//             }
-//         }
-//     }
-
-//     // --- Show simple metadata ---
-//     public void showMetadata(String type, String namePart) {
-//         File folder = new File(rootDir, type + "s");
-//         File[] files = folder.listFiles();
-//         if (files == null) return;
-
-//         for (File f : files) {
-//             if (f.getName().contains(namePart)) {
-//                 System.out.println("\nFile: " + f.getName());
-//                 System.out.println("  Size: " + f.length() + " bytes");
-//                 System.out.println("  Last Modified: " + new Date(f.lastModified()));
-//                 System.out.println("  Absolute Path: " + f.getAbsolutePath());
-//             }
-//         }
-//     }
-// }
-
-// import java.io.*;
-// import java.text.SimpleDateFormat;
-// import java.util.*;
-
-// public class LogManager {
-//     private File baseDir;
-//     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-//     public LogManager(String dirName) {
-//         baseDir = new File(dirName);
-//         if (!baseDir.exists()) baseDir.mkdirs();
-//     }
-
-//     // Create log file path: logs/type/name_YYYY-MM-DD.log
-//     private File getLogFile(String type, String name) {
-//         String date = dateFormat.format(new Date());
-//         File typeDir = new File(baseDir, type);
-//         if (!typeDir.exists()) typeDir.mkdirs();
-//         return new File(typeDir, name + "_" + date + ".log");
-//     }
-
-//     // Write text entry to log file
-//     public void logText(String type, String name, String message) {
-//         try {
-//             File logFile = getLogFile(type, name);
-//             try (FileWriter fw = new FileWriter(logFile, true)) {
-//                 fw.write(new Date() + " : " + message + "\n");
-//             }
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//     }
-
-//     // Show simple metadata (size, last modified)
-//     public void showMetadata(String type, String name) {
-//         File logFile = getLogFile(type, name);
-//         if (logFile.exists()) {
-//             System.out.println("Metadata for: " + logFile.getName());
-//             System.out.println("Size: " + logFile.length() + " bytes");
-//             System.out.println("Last modified: " + new Date(logFile.lastModified()));
-//         } else {
-//             System.out.println("No log file found.");
-//         }
-//     }
-
-//     // Open requested log file by name or date
-//     public void openLog(String type, String keyword) {
-//         File typeDir = new File(baseDir, type);
-//         File[] files = typeDir.listFiles();
-//         if (files == null) return;
-
-//         for (File f : files) {
-//             if (f.getName().contains(keyword)) {
-//                 System.out.println("\n--- Reading log: " + f.getName() + " ---");
-//                 try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-//                     String line;
-//                     while ((line = br.readLine()) != null) {
-//                         System.out.println(line);
-//                     }
-//                 } catch (IOException e) {
-//                     e.printStackTrace();
-//                 }
-//             }
-//         }
-//     }
-
-//     // Archive log (simple rename)
-//     public void archiveLog(String type, String name) {
-//         File logFile = getLogFile(type, name);
-//         if (logFile.exists()) {
-//             File archiveDir = new File(baseDir, "archive");
-//             if (!archiveDir.exists()) archiveDir.mkdirs();
-//             File newFile = new File(archiveDir, logFile.getName() + ".bak");
-//             logFile.renameTo(newFile);
-//             System.out.println("Archived: " + newFile.getName());
-//         }
-//     }
-
-//     // Delete log files containing keyword
-//     public void deleteLogs(String type, String keyword) {
-//         File typeDir = new File(baseDir, type);
-//         File[] files = typeDir.listFiles();
-//         if (files == null) return;
-
-//         for (File f : files) {
-//             if (f.getName().contains(keyword)) {
-//                 f.delete();
-//                 System.out.println("Deleted: " + f.getName());
-//             }
-//         }
-//     }
-// }
-
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.*;
 
+/**
+ * Handles all logging, archiving, and log searching operations.
+ * Demonstrates usage of both byte and character streams.
+ */
 public class LogManager {
-    private File baseDir = new File("logs");
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final String LOG_DIR = "logs";
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public LogManager() {
-        if (!baseDir.exists()) baseDir.mkdirs();
-    }
-
-    private File getLogFile(String type, String name) {
-        String date = dateFormat.format(new Date());
-        File typeDir = new File(baseDir, type);
-        if (!typeDir.exists()) typeDir.mkdirs();
-        return new File(typeDir, name + "_" + date + ".log");
+        new File(LOG_DIR).mkdirs();
     }
 
     public void log(String type, String name, String message) {
-        try (FileWriter fw = new FileWriter(getLogFile(type, name), true)) {
-            fw.write(new Date() + " : " + message + "\n");
+        try {
+            String date = sdf.format(new Date());
+            File dir = new File(LOG_DIR + "/" + type);
+            dir.mkdirs();
+
+            File logFile = new File(dir, name + "_" + date + ".log");
+
+            // Character Stream - Writing log entries
+            try (FileWriter fw = new FileWriter(logFile, true)) {
+                fw.write("[" + new Date() + "] " + message + "\n");
+            }
+
+            // Byte Stream - Save metadata
+            LogMetadata meta = new LogMetadata(logFile.getName(), type, new Date());
+            writeMetadata(meta);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error writing log: " + e.getMessage());
+        }
+    }
+
+    private void writeMetadata(LogMetadata meta) {
+        File metaDir = new File(LOG_DIR + "/meta");
+        metaDir.mkdirs();
+
+        File metaFile = new File(metaDir, meta.getFileName() + ".meta");
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(metaFile))) {
+            out.writeObject(meta);
+        } catch (IOException e) {
+            System.err.println("Failed to write metadata: " + e.getMessage());
         }
     }
 
     public void openLog(String type, String keyword) {
-        System.out.println(type+" "+keyword);
-        File typeDir = new File(baseDir, type);
-        File[] files = typeDir.listFiles();
-        if (files == null) return;
-        System.out.println("HII0");
+        File dir = new File(LOG_DIR + "/" + type);
+        if (!dir.exists()) {
+            System.out.println("No logs for type: " + type);
+            return;
+        }
+
+        Pattern pattern = Pattern.compile(".*" + keyword + ".*");
+        File[] files = dir.listFiles();
+        boolean found = false;
+
+        if (files != null) {
+            for (File f : files) {
+                Matcher m = pattern.matcher(f.getName());
+                if (m.matches()) {
+                    found = true;
+                    System.out.println("\n=== Showing log: " + f.getName() + " ===");
+
+                    try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            System.out.println(line);
+                        }
+                    } catch (IOException e) {
+                        System.err.println("Error reading log: " + e.getMessage());
+                    }
+                }
+            }
+        }
+
+        if (!found) {
+            System.out.println("No log found for keyword: " + keyword);
+        }
+    }
+
+    public void readMetadata(String type, String keyword) {
+    File metaDir = new File(LOG_DIR + "/meta");
+    if (!metaDir.exists()) {
+        System.out.println("No metadata found.");
+        return;
+    }
+
+    Pattern pattern = Pattern.compile(".*" + keyword + ".*");
+    File[] files = metaDir.listFiles();
+    boolean found = false;
+
+    if (files != null) {
         for (File f : files) {
-            if (f.getName().contains(keyword)) {
-                System.out.println("\n--- " + f.getName() + " ---");
-                try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-                    String line;
-                    while ((line = br.readLine()) != null) System.out.println(line);
-                } catch (IOException e) {
-                    e.printStackTrace();
+            Matcher m = pattern.matcher(f.getName());
+            if (m.matches()) {
+                found = true;
+                try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(f))) {
+                    LogMetadata meta = (LogMetadata) in.readObject();
+                    System.out.println("\n=== Metadata for: " + f.getName() + " ===");
+                    System.out.println("File Name: " + meta.getFileName());
+                    System.out.println("Type: " + meta.getType());
+                    System.out.println("Created On: " + meta.getCreatedOn());
+                } catch (IOException | ClassNotFoundException e) {
+                    System.err.println("Failed to read metadata: " + e.getMessage());
                 }
             }
         }
     }
 
-    public void showMetadata(String type, String name) {
-        File f = getLogFile(type, name);
-        if (f.exists()) {
-            System.out.println("Metadata for " + f.getName());
-            System.out.println("Size: " + f.length() + " bytes");
-            System.out.println("Last modified: " + new Date(f.lastModified()));
-        } else {
-            System.out.println("No log found for " + name);
+    if (!found) {
+        System.out.println("No metadata found for keyword: " + keyword);
+    }
+}
+
+    public void archiveOldLogs() {
+        File dir = new File(LOG_DIR);
+        File archive = new File(LOG_DIR + "/archive");
+        archive.mkdirs();
+
+        for (File sub : Objects.requireNonNull(dir.listFiles())) {
+            if (sub.isDirectory() && !sub.getName().equals("archive")) {
+                for (File f : Objects.requireNonNull(sub.listFiles())) {
+                    if (f.getName().endsWith(".log")) {
+                        if (f.lastModified() < System.currentTimeMillis() - (2 * 24 * 60 * 60 * 1000)) { // older than 2 days
+                            f.renameTo(new File(archive, f.getName()));
+                        }
+                    }
+                }
+            }
         }
     }
 }
