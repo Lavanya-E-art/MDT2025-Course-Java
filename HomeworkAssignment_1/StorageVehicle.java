@@ -32,6 +32,7 @@ public class StorageVehicle implements Serializable {
         if (logs != null) logs.log("vehicle", id, "Finished task. Now IDLE.");
     }
 
+
     @Override
     public String toString() {
         return "Vehicle[" + id + ", status=" + status + ", load=" + load + "]";

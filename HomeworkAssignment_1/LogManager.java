@@ -118,6 +118,75 @@ public class LogManager {
         System.out.println("No metadata found for keyword: " + keyword);
     }
 }
+/**
+ * Moves matching log files to a specified directory.
+ */
+public void moveLog(String type, String keyword, String destinationDir) {
+    File srcDir = new File(LOG_DIR + "/" + type);
+    File destDir = new File(destinationDir);
+    destDir.mkdirs();
+
+    Pattern pattern = Pattern.compile(".*" + keyword + ".*");
+    File[] files = srcDir.listFiles();
+    boolean found = false;
+
+    if (files != null) {
+        for (File f : files) {
+            Matcher m = pattern.matcher(f.getName());
+            if (m.matches()) {
+                found = true;
+                File destFile = new File(destDir, f.getName());
+                if (f.renameTo(destFile)) {
+                    System.out.println("Moved: " + f.getName() + " -> " + destFile.getAbsolutePath());
+                } else {
+                    System.err.println("Failed to move: " + f.getName());
+                }
+            }
+        }
+    }
+
+    if (!found) {
+        System.out.println("No files matched keyword: " + keyword);
+    }
+}
+
+/**
+ * Deletes matching log files and their metadata.
+ */
+public void deleteLog(String type, String keyword) {
+    File logDir = new File(LOG_DIR + "/" + type);
+    File metaDir = new File(LOG_DIR + "/meta");
+
+    Pattern pattern = Pattern.compile(".*" + keyword + ".*");
+    boolean found = false;
+
+    // Delete logs
+    File[] logs = logDir.listFiles();
+    if (logs != null) {
+        for (File log : logs) {
+            Matcher m = pattern.matcher(log.getName());
+            if (m.matches()) {
+                found = true;
+                if (log.delete()) {
+                    System.out.println("Deleted log file: " + log.getName());
+                } else {
+                    System.err.println("Failed to delete log: " + log.getName());
+                }
+
+                // Delete corresponding metadata
+                File metaFile = new File(metaDir, log.getName() + ".meta");
+                if (metaFile.exists() && metaFile.delete()) {
+                    System.out.println("Deleted metadata: " + metaFile.getName());
+                }
+            }
+        }
+    }
+
+    if (!found) {
+        System.out.println("No log files found for keyword: " + keyword);
+    }
+}
+
 
     public void archiveOldLogs() {
         File dir = new File(LOG_DIR);
