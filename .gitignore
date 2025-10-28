@@ -6,4 +6,6 @@
 /out/
 /target/
 .metadata/
+*.log
+*.meta
 
