@@ -1,0 +1,140 @@
+                        ┌──────────────────────────┐
+                        │        Resources         │<<abstract>>
+                        ├──────────────────────────┤
+                        │ - name : String          │
+                        ├──────────────────────────┤
+                        │ + getName()              │
+                        │ + getCost() : double     │<<abstract>>
+                        │ + getAmountDescription() │<<abstract>>
+                        └──────────┬───────────────┘
+                                   │
+        ┌──────────────────────────┼───────────────────────────┐
+        │                          │                           │
+┌───────────────────────┐  ┌────────────────────┐   ┌──────────────────────┐
+│   HumanResources       │  │ NonHumanResources  │<<abstract>>│
+│----------------------- │  └────────────────────┘   └──────────────────────┘
+│ - count : int          │                         │
+│ - hourlyRate : double  │                         │
+├────────────────────────┤                         │
+│ + getCost()            │                         │
+│ + getAmountDescription()│                        │
+└────────────────────────┘                         │
+                                                   │
+      ┌───────────────────────────────┬────────────┴────────────────────────────┐
+      │                               │                                         │
+┌───────────────────────┐  ┌────────────────────────────┐  ┌──────────────────────────┐
+│ HardwareResources     │  │ MaterialResources          │  │ SoftwareResources        │
+├───────────────────────┤  ├────────────────────────────┤  ├──────────────────────────┤
+│ - purchaseCost:double │  │ - unitCost: double         │  │ - licenseCost: double    │
+│ - maintenanceCost:double││ - quantity: int            │  ├──────────────────────────┤
+├───────────────────────┤  ├────────────────────────────┤  │ + getCost()              │
+│ + getCost()           │  │ + getCost()                │  │ + getAmountDescription() │
+│ + getAmountDescription│  │ + getAmountDescription()   │  └──────────────────────────┘
+└───────────┬───────────┘  └────────────────────────────┘
+            │
+┌────────────────────────────────────────────────────────────┐
+│ AGV (extends HardwareResources)                             │
+├────────────────────────────────────────────────────────────┤
+│ - id : String                                               │
+│ - batteryLoad : double                                      │
+│ - consumption : double                                      │
+│ - chargingTime : Duration                                   │
+│ - position : Position                                       │
+│ - maxSpeed : float                                          │
+│ - actSpeed : float                                          │
+├────────────────────────────────────────────────────────────┤
+│ + getData() : String                                        │
+│ + setData(...)                                              │
+│ + getAmountDescription()                                    │
+└────────────────────────────────────────────────────────────┘
+
+
+┌────────────────────────────┐
+│        Position             │
+├────────────────────────────┤
+│ - x : double                │
+│ - y : double                │
+├────────────────────────────┤
+│ + getX(), getY(), setX(), setY() │
+└────────────────────────────┘
+
+
+                  ┌──────────────────────────┐
+                  │        IOperation         │<<abstract>>
+                  ├──────────────────────────┤
+                  │ - name : String          │
+                  ├──────────────────────────┤
+                  │ + perform(): double      │<<abstract>>
+                  │ + getDuration(): Duration│<<abstract>>
+                  └──────────┬───────────────┘
+                             │
+         ┌───────────────────┴─────────────────────┐
+         │                                         │
+┌──────────────────────────────┐     ┌──────────────────────────────┐
+│    HumanOperation            │     │   TransportOperation         │
+├──────────────────────────────┤     ├──────────────────────────────┤
+│ - duration : Duration        │     │ - distanceKm : double        │
+│ - workers : int              │     │ - costPerKm : double         │
+│ - hourlyRate : double        │     │ - duration : Duration        │
+├──────────────────────────────┤     ├──────────────────────────────┤
+│ + perform() : double         │     │ + perform() : double         │
+│ + getDuration() : Duration   │     │ + getDuration() : Duration   │
+└──────────────────────────────┘     └──────────────────────────────┘
+
+
+                   ┌──────────────────────────────┐
+                   │          Process             │<<abstract>>
+                   ├──────────────────────────────┤
+                   │ - id : String                │
+                   │ - operations : List<IOperation>│
+                   ├──────────────────────────────┤
+                   │ + addOperation()             │
+                   │ + getOperationsCost() : double│
+                   │ + getTotalCost() : double<<abstract>>│
+                   └──────────┬───────────────────┘
+                              │
+          ┌───────────────────┼───────────────────────┐
+          │                                           │
+┌──────────────────────────────┐         ┌─────────────────────────────┐
+│   ManagementProcess          │         │     IndustrialProcess       │
+├──────────────────────────────┤         ├─────────────────────────────┤
+│                              │         │ - processDuration : Duration│
+│                              │         │ - requiredResources : List<Resources>│
+├──────────────────────────────┤         ├─────────────────────────────┤
+│ + getTotalCost()             │         │ + addResource(Resources)    │
+│ (operations only)            │         │ + getTotalCost()            │
+└──────────────────────────────┘         └─────────────────────────────┘
+
+
+┌──────────────────────────────┐
+│          Warehouse            │
+├──────────────────────────────┤
+│ - name : String               │
+│ - processes : List<Process>   │
+├──────────────────────────────┤
+│ + addProcess(Process)         │
+│ + simulateOnce() : Summary    │
+└────────────┬─────────────────┘
+             │
+     ┌──────────────────────────────┐
+     │   Warehouse.Summary          │
+     ├──────────────────────────────┤
+     │ - totalOperationCost: double │
+     │ - totalProcessCost: double   │
+     │ - processSummaries: List<ProcessSummary> │
+     └────────────┬─────────────────┘
+                  │
+     ┌──────────────────────────────┐
+     │ Warehouse.ProcessSummary     │
+     ├──────────────────────────────┤
+     │ - processId : String         │
+     │ - operationsCost : double    │
+     │ - totalCost : double         │
+     └──────────────────────────────┘
+
+
+┌──────────────────────────────┐
+│            Main               │
+├──────────────────────────────┤
+│ + main(String[] args)         │
+└──────────────────────────────┘
