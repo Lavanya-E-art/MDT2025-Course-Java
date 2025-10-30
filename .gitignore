@@ -9,3 +9,5 @@
 *.log
 *.meta
 
+*.classpath
+*.project
