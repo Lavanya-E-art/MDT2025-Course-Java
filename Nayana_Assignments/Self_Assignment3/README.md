@@ -1,4 +1,4 @@
-Self-assessment task3-Inheritance
+Self-assessment task 3-Inheritance
 
 🧠 Project Title: Smart Industrial Process Management System
 📘 Overview
