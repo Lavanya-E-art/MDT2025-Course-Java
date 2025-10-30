@@ -31,6 +31,7 @@ public class Main {
             keyaDemo.analyzeProcess(null); // triggers AGVDataException
         } catch (Exception e) {
             System.err.println("Caught (Keya analyze): " + e);
+            e.getCause().printStackTrace(); 
         }
 
         // ---------------- Lavanya ----------------
