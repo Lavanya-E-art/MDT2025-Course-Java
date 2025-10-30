@@ -1,12 +1,15 @@
-Self-assessment task 3-Inheritance
+# 🧠💻 **Self-Assessment Task 3 — Inheritance**
 
-🧠 Project Title: Smart Industrial Process Management System
-📘 Overview
+## 🏭✨ **Project Title: Smart Industrial Process Management System**
 
-This project represents a modular, object-oriented system for managing and simulating industrial and management processes.
-It models relationships between Processes, Resources, and Operations, providing a structured way to simulate how various resource types (human, hardware, software, and material) interact in both management and industrial contexts.
-It demonstrates **object-oriented programming (OOP)** concepts such as **inheritance**, **abstraction**, **encapsulation**, and **polymorphism** through a **Warehouse Simulation System**.
+## 📘 **Overview**
 
+This project represents a **modular**, **object-oriented system** for managing and simulating **industrial** and **management processes**.  
+It models relationships between **Processes**, **Resources**, and **Operations**, providing a structured way to simulate how various resource types — 🧑‍🏭 *Human*, 🧰 *Hardware*, 💾 *Software*, and 🧱 *Material* — interact in both management and industrial contexts.  
+
+It demonstrates key **Object-Oriented Programming (OOP)** concepts such as  
+🔹 **Inheritance** · 🔹 **Abstraction** · 🔹 **Encapsulation** · 🔹 **Polymorphism**  
+through the design of a **Warehouse Simulation System**.
 
 ---
 
