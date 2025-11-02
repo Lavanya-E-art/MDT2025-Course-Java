@@ -1,0 +1,139 @@
+
+
+## 🧠 **Theory Section — Java Concurrency**
+
+---
+
+### **1️⃣ Comparison of Concurrency Models**
+
+| **Model**                          | **Description**                                                                                           | **Pros (Advantages)**                                                                                                         | **Cons (Disadvantages)**                                                                            |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **Thread-based Model**             | Multiple threads share the same memory and communicate via shared variables (synchronized).               | – High performance for shared memory systems.<br>– Easy for small-scale apps.<br>– Direct OS thread mapping.                  | – Hard to debug (deadlocks, race conditions).<br>– Synchronization overhead.<br>– Poor scalability. |
+| **Message-Passing Model**          | Threads (or processes) communicate only by sending messages, not by sharing data (e.g., `BlockingQueue`). | – No shared state → fewer race conditions.<br>– Easier reasoning about program flow.<br>– Scales well in distributed systems. | – Message latency can slow down performance.<br>– Harder to coordinate complex interactions.        |
+| **Actor Model**                    | Independent “actors” each have their own state and communicate asynchronously (used in Akka, Erlang).     | – Extremely scalable.<br>– No locks needed.<br>– Ideal for large distributed systems.                                         | – Harder debugging and exception handling.<br>– Requires framework/library.                         |
+| **Thread Pool / ExecutorService**  | A fixed number of worker threads execute queued tasks.                                                    | – Reuses threads → less overhead.<br>– Prevents system overload.<br>– Built-in management in Java.                            | – Queues can still block.<br>– Tuning pool size required.                                           |
+| **Virtual Threads (Project Loom)** | Lightweight, user-managed threads (Java 21+).                                                             | – Millions of threads possible.<br>– Simplified concurrency model.<br>– Non-blocking by design.                               | – Newer feature, limited ecosystem tools.<br>– Not yet widely adopted in older systems.             |
+
+---
+
+### **2️⃣ Concurrency vs Parallelism**
+
+| **Aspect**       | **Concurrency**                                                | **Parallelism**                                                        |
+| ---------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Meaning**      | Managing multiple tasks that *overlap in time* (interleaving). | Executing multiple tasks *at the same instant* on multiple processors. |
+| **Goal**         | To improve responsiveness and structure.                       | To improve performance and throughput.                                 |
+| **Example**      | Switching between tasks on a single CPU (multithreading).      | Running matrix multiplication on multiple cores.                       |
+| **Analogy**      | A single waiter serving many tables (switching attention).     | Many waiters serving many tables simultaneously.                       |
+| **Java Example** | Using `Thread` or `ExecutorService`.                           | Using `parallelStream()` or `ForkJoinPool`.                            |
+
+**Code Example (for report):**
+
+```java
+// Concurrency Example
+Thread t1 = new Thread(() -> System.out.println("Task 1"));
+Thread t2 = new Thread(() -> System.out.println("Task 2"));
+t1.start(); t2.start(); // Tasks overlap (interleaved)
+```
+
+```java
+// Parallelism Example
+int sum = IntStream.range(1, 1_000_000)
+                   .parallel()
+                   .sum();
+System.out.println("Parallel sum: " + sum);
+```
+
+---
+
+### **3️⃣ Blocking vs Non-blocking Concurrency Algorithms**
+
+#### **🔹 Blocking Algorithms**
+
+* The thread *waits* (is blocked) until the resource is available.
+* Example: `BlockingQueue.put()`, `synchronized`, `wait()`, `Semaphore.acquire()`.
+* Good for **controlled resource access**, but can lead to **thread starvation** or **deadlocks**.
+
+**Code Example (Blocking):**
+
+```java
+BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(2);
+
+new Thread(() -> {
+  try {
+    for (int i = 0; i < 5; i++) {
+      queue.put(i); // blocks if full
+      System.out.println("Produced: " + i);
+    }
+  } catch (InterruptedException e) {}
+}).start();
+
+new Thread(() -> {
+  try {
+    while (true)
+      System.out.println("Consumed: " + queue.take()); // blocks if empty
+  } catch (InterruptedException e) {}
+}).start();
+```
+
+#### **🔹 Non-blocking Algorithms**
+
+* Threads *never wait* for locks or conditions.
+* Uses **atomic operations** (CAS — Compare And Swap).
+* Example: `AtomicInteger`, `ConcurrentLinkedQueue`.
+* Better for **high performance** systems with frequent updates.
+
+**Code Example (Non-blocking):**
+
+```java
+AtomicInteger counter = new AtomicInteger(0);
+
+Runnable increment = () -> {
+  for (int i = 0; i < 1000; i++)
+    counter.incrementAndGet(); // Non-blocking atomic increment
+};
+
+Thread t1 = new Thread(increment);
+Thread t2 = new Thread(increment);
+t1.start(); t2.start();
+try { t1.join(); t2.join(); } catch (InterruptedException e) {}
+System.out.println("Final count = " + counter.get());
+```
+
+| **Comparison**      | **Blocking**                 | **Non-Blocking**                     |
+| ------------------- | ---------------------------- | ------------------------------------ |
+| **Waits for locks** | Yes                          | No                                   |
+| **Speed**           | Slower                       | Faster (atomic ops)                  |
+| **Deadlock risk**   | Yes                          | None                                 |
+| **CPU usage**       | Lower                        | Higher (busy-wait)                   |
+| **Example classes** | `BlockingQueue`, `Semaphore` | `AtomicInteger`, `ConcurrentHashMap` |
+
+---
+
+### **4️⃣ Simulation Description (Conceptual Overview)**
+
+The simulation demonstrates **real-world concurrency**:
+
+* There are **N charging stations**.
+* Multiple **AGVs (Automated Guided Vehicles)** arrive at **random times**.
+* If all stations are busy, AGVs wait in a **queue**.
+* If an AGV’s **waiting time > 15 min**, it leaves.
+* Uses:
+
+  * `ExecutorService` → to handle concurrent charging threads.
+  * `Semaphore` → to represent limited charging stations.
+  * `ConcurrentLinkedQueue` → to handle arrivals safely.
+  * `Random` → to simulate variable arrival times.
+
+---
+
+### **5️⃣ Summary**
+
+| **Topic**      | **Key Idea**                                                                |
+| -------------- | --------------------------------------------------------------------------- |
+| Concurrency    | Multiple tasks *appear* to run together (interleaved).                      |
+| Parallelism    | Tasks *actually* run simultaneously.                                        |
+| Blocking       | Waits for conditions/resources.                                             |
+| Non-Blocking   | Continues without waiting; uses atomic operations.                          |
+| AGV Simulation | Demonstrates resource sharing & queue management using concurrency in Java. |
+
+
