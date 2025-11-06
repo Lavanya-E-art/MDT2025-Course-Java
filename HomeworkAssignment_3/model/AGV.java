@@ -36,5 +36,13 @@ public class AGV {
                 startChargingTime > 0 ?
                 " [charging done]" : " [waiting]");
     }
+
+    public long getEndChargingTime() {
+        return this.endChargingTime;
+    }
+
+    public long getStartChargingTime() {
+        return this.startChargingTime;
+    }
 }
 
