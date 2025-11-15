@@ -74,7 +74,7 @@ public class ManagersJUnitTest {
 
         assertNull(agvManager.getAvailableAGV());
     }
-
+//    Get AGV list is immutable (defensive copy)manager.getAgvList().clear();  // OOPS! Deletes all AGVs from the system!
     @Test
     public void testAGVListDefensiveCopy() {
         AGV agv = new AGV("001", new Position(80, 50));

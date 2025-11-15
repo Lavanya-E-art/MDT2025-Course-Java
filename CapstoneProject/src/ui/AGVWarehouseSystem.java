@@ -46,7 +46,7 @@ public class AGVWarehouseSystem extends Application {
         mainTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         // Tab 1: Warehouse Operations
-        Tab operationsTab = new Tab("� Warehouse Operations");
+        Tab operationsTab = new Tab(" Warehouse Operations");
         BorderPane operationsPane = new BorderPane();
         
         // Left: Task Creation Panel
@@ -64,12 +64,12 @@ public class AGVWarehouseSystem extends Application {
         operationsTab.setContent(operationsPane);
 
         // Tab 2: Log Viewer
-        Tab logViewerTab = new Tab("� Log Viewer");
+        Tab logViewerTab = new Tab(" Log Viewer");
         logViewer = new LogViewer();
         logViewerTab.setContent(logViewer);
 
         // Tab 3: Console Output
-        Tab consoleTab = new Tab("� Console Output");
+        Tab consoleTab = new Tab(" Console Output");
         logArea = new TextArea();
         logArea.setEditable(false);
         logArea.setPrefHeight(700);
@@ -124,15 +124,15 @@ public class AGVWarehouseSystem extends Application {
         agvManager.addAGV(new AGV("003", new Position(120, 50)));
 
         // Temperature-Controlled Zones
-        // Cold Zones (-20�C)
+        // Cold Zones (-20C)
         storageZones.add(new StorageZone("Cold-Zone-A", -20.0, 10, new Position(250, 150)));
         storageZones.add(new StorageZone("Cold-Zone-B", -20.0, 10, new Position(850, 150)));
 
-        // Room Temperature Zones (20�C)
+        // Room Temperature Zones (20C)
         storageZones.add(new StorageZone("Room-Zone-A", 20.0, 10, new Position(250, 350)));
         storageZones.add(new StorageZone("Room-Zone-B", 20.0, 10, new Position(850, 350)));
 
-        // Hot Zones (30�C)
+        // Hot Zones (30)
         storageZones.add(new StorageZone("Hot-Zone-A", 30.0, 10, new Position(250, 550)));
         storageZones.add(new StorageZone("Hot-Zone-B", 30.0, 10, new Position(850, 550)));
 
@@ -200,7 +200,7 @@ public class AGVWarehouseSystem extends Application {
         panel.setPrefWidth(300);
         panel.setStyle("-fx-background-color: #f0f0f0;");
 
-        Label title = new Label("� Manual Task Creation");
+        Label title = new Label(" Manual Task Creation");
         title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         statusLabel = new Label("");
@@ -272,7 +272,7 @@ public class AGVWarehouseSystem extends Application {
 
                 double tempDiff = Math.abs(target.getTemperature() - item.getRequiredTemperature());
                 if (tempDiff > 5) {
-                    showStatus(String.format("Temperature mismatch! Item needs %.0f�C but target zone is %.0f�C",
+                    showStatus(String.format("Temperature mismatch! Item needs %.0fC but target zone is %.0fC",
                             item.getRequiredTemperature(), target.getTemperature()), true);
                     return;
                 }
@@ -301,7 +301,7 @@ public class AGVWarehouseSystem extends Application {
         VBox panel = new VBox(10);
         panel.setPadding(new Insets(10));
 
-        Label title = new Label("� Warehouse Map - Temperature Zones");
+        Label title = new Label(" Warehouse Map - Temperature Zones");
         title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         warehousePane = new Pane();
@@ -328,7 +328,7 @@ public class AGVWarehouseSystem extends Application {
         activeTasksView = new ListView<>();
         activeTasksView.setPrefHeight(200);
 
-        Label agvLabel = new Label("� AGV Status:");
+        Label agvLabel = new Label(" AGV Status:");
         agvLabel.setStyle("-fx-font-weight: bold;");
         ListView<String> agvListView = new ListView<>();
         agvListView.setPrefHeight(150);
@@ -373,7 +373,7 @@ public class AGVWarehouseSystem extends Application {
         unsortedRect.setStroke(Color.ORANGE);
         unsortedRect.setStrokeWidth(3);
         Text unsortedLabel = new Text(unsortedArea.getPosition().getX() - 55,
-                unsortedArea.getPosition().getY() - 25, " � " + unsortedArea.getZoneName());
+                unsortedArea.getPosition().getY() - 25, "  " + unsortedArea.getZoneName());
         Text unsortedCount = new Text(unsortedArea.getPosition().getX() - 25,
                 unsortedArea.getPosition().getY() + 5, unsortedArea.getItems().size() + " items");
         unsortedCount.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
@@ -392,7 +392,7 @@ public class AGVWarehouseSystem extends Application {
 
             Text label = new Text(zone.getPosition().getX() - 55, zone.getPosition().getY() - 20, " " + zone.getZoneName());
             Text temp = new Text(zone.getPosition().getX() - 55, zone.getPosition().getY(),
-                    String.format("%.0f�C | %d items", zone.getTemperature(), zone.getItems().size()));
+                    String.format("%.0fC | %d items", zone.getTemperature(), zone.getItems().size()));
             temp.setStyle("-fx-font-size: 10px;");
 
             warehousePane.getChildren().addAll(rect, label, temp);

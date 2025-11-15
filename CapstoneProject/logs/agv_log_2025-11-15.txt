@@ -6,3 +6,147 @@
 [2025-11-15 12:45:32] 🔋 BATTERY - AGV-001: 18.0% - Needs charging
 [2025-11-15 12:45:34] 🚗 MOVEMENT - AGV-001: (80, 50) → CS-1
 [2025-11-15 12:45:34] ⚡ CHARGING START - AGV-001 at CS-1 (Battery: 18.0%)
+============================================================
+  AGV LOG
+  Session started: 2025-11-15 13:21:07
+============================================================
+
+[2025-11-15 13:21:09] 🔋 BATTERY - AGV-001: 18.0% - Needs charging
+[2025-11-15 13:21:11] 🚗 MOVEMENT - AGV-001: (80, 50) → CS-1
+[2025-11-15 13:21:11] ⚡ CHARGING START - AGV-001 at CS-1 (Battery: 18.0%)
+============================================================
+  AGV LOG
+  Session started: 2025-11-15 13:21:22
+============================================================
+
+
+============================================================
+  Session ended: 2025-11-15 13:21:47
+============================================================
+============================================================
+  AGV LOG
+  Session started: 2025-11-15 13:23:05
+============================================================
+
+
+============================================================
+  Session ended: 2025-11-15 13:23:17
+============================================================
+============================================================
+  AGV LOG
+  Session started: 2025-11-15 13:25:41
+============================================================
+
+[2025-11-15 13:25:46] 🚗 MOVEMENT - AGV-001: (80, 50) → Unsorted-Area
+[2025-11-15 13:25:46] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:25:47] 🚗 MOVEMENT - AGV-003: (120, 50) → Unsorted-Area
+
+============================================================
+  Session ended: 2025-11-15 13:25:49
+============================================================
+============================================================
+  AGV LOG
+  Session started: 2025-11-15 13:37:45
+============================================================
+
+[2025-11-15 13:37:49] 🔋 BATTERY - AGV-001: 18.0% - Needs charging
+[2025-11-15 13:37:51] 🚗 MOVEMENT - AGV-001: (80, 50) → CS-1
+[2025-11-15 13:37:51] ⚡ CHARGING START - AGV-001 at CS-1 (Battery: 18.0%)
+[2025-11-15 13:37:53] 🚗 MOVEMENT - AGV-001: (80, 50) → Zone-A
+[2025-11-15 13:37:53] 🚗 MOVEMENT - AGV-002: (100, 50) → Zone-A
+[2025-11-15 13:37:54] 🚗 MOVEMENT - AGV-001: (80, 50) → Zone-A
+[2025-11-15 13:37:56] 🚗 MOVEMENT - AGV-001: Zone-A → Zone-B
+[2025-11-15 13:37:57] 🚗 MOVEMENT - AGV-002: Zone-A → Zone-B
+[2025-11-15 13:37:57] 🚗 MOVEMENT - AGV-001: (80, 50) → Zone-A
+[2025-11-15 13:37:57] 🚗 MOVEMENT - AGV-001: Zone-A → Zone-B
+[2025-11-15 13:37:57] 🚗 MOVEMENT - AGV-002: (100, 50) → Zone-A
+============================================================
+  AGV LOG
+  Session started: 2025-11-15 13:39:25
+============================================================
+
+[2025-11-15 13:39:30] 🚗 MOVEMENT - AGV-001: (80, 50) → Unsorted-Area
+[2025-11-15 13:39:30] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:39:31] 🚗 MOVEMENT - AGV-003: (120, 50) → Unsorted-Area
+[2025-11-15 13:39:33] 🚗 MOVEMENT - AGV-001: Unsorted-Area → Cold-Zone-A
+[2025-11-15 13:39:34] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Room-Zone-B
+[2025-11-15 13:39:34] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Room-Zone-A
+[2025-11-15 13:39:39] 🚗 MOVEMENT - AGV-001: (100, 50) → Unsorted-Area
+[2025-11-15 13:39:40] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:39:40] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:39:43] 🚗 MOVEMENT - AGV-001: Unsorted-Area → Cold-Zone-B
+[2025-11-15 13:39:44] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Hot-Zone-A
+[2025-11-15 13:39:44] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Room-Zone-B
+[2025-11-15 13:39:49] 🚗 MOVEMENT - AGV-001: (100, 50) → Unsorted-Area
+[2025-11-15 13:39:49] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:39:50] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:39:52] 🚗 MOVEMENT - AGV-001: Unsorted-Area → Room-Zone-A
+[2025-11-15 13:39:53] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Cold-Zone-A
+[2025-11-15 13:39:54] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Hot-Zone-B
+[2025-11-15 13:39:58] 🚗 MOVEMENT - AGV-001: (100, 50) → Unsorted-Area
+[2025-11-15 13:39:59] 🚗 MOVEMENT - AGV-002: (100, 50) → Cold-Zone-A
+[2025-11-15 13:40:00] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:40:02] 🚗 MOVEMENT - AGV-001: Unsorted-Area → Room-Zone-B
+[2025-11-15 13:40:03] 🚗 MOVEMENT - AGV-002: Cold-Zone-A → Cold-Zone-B
+[2025-11-15 13:40:03] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Room-Zone-B
+[2025-11-15 13:40:07] 🔋 BATTERY - AGV-001: 12.8% - Needs charging
+[2025-11-15 13:40:09] 🚗 MOVEMENT - AGV-001: (100, 50) → CS-1
+[2025-11-15 13:40:09] ⚡ CHARGING START - AGV-001 at CS-1 (Battery: 12.8%)
+[2025-11-15 13:40:09] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:40:10] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:40:13] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Room-Zone-A
+[2025-11-15 13:40:13] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Hot-Zone-A
+[2025-11-15 13:40:18] ✅ CHARGING COMPLETE - AGV-001 (12.8% → 100%)
+[2025-11-15 13:40:19] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:40:19] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:40:22] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Room-Zone-A
+[2025-11-15 13:40:23] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Cold-Zone-B
+
+============================================================
+  Session ended: 2025-11-15 13:40:46
+============================================================
+============================================================
+  AGV LOG
+  Session started: 2025-11-15 13:48:16
+============================================================
+
+[2025-11-15 13:48:21] 🚗 MOVEMENT - AGV-001: (80, 50) → Unsorted-Area
+[2025-11-15 13:48:21] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:48:22] 🚗 MOVEMENT - AGV-003: (120, 50) → Unsorted-Area
+[2025-11-15 13:48:24] 🚗 MOVEMENT - AGV-001: Unsorted-Area → Cold-Zone-A
+[2025-11-15 13:48:25] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Room-Zone-B
+[2025-11-15 13:48:25] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Room-Zone-A
+[2025-11-15 13:48:30] 🚗 MOVEMENT - AGV-001: (100, 50) → Unsorted-Area
+[2025-11-15 13:48:31] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:48:31] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:48:34] 🚗 MOVEMENT - AGV-001: Unsorted-Area → Cold-Zone-B
+[2025-11-15 13:48:34] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Hot-Zone-A
+[2025-11-15 13:48:35] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Room-Zone-B
+[2025-11-15 13:48:40] 🚗 MOVEMENT - AGV-001: (100, 50) → Cold-Zone-A
+[2025-11-15 13:48:40] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:48:41] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:48:43] 🚗 MOVEMENT - AGV-001: Cold-Zone-A → Cold-Zone-B
+[2025-11-15 13:48:44] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Cold-Zone-B
+[2025-11-15 13:48:44] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Cold-Zone-A
+[2025-11-15 13:48:48] 🔋 BATTERY - AGV-001: 19.0% - Needs charging
+[2025-11-15 13:48:50] 🚗 MOVEMENT - AGV-001: (100, 50) → CS-1
+[2025-11-15 13:48:50] ⚡ CHARGING START - AGV-001 at CS-1 (Battery: 19.0%)
+[2025-11-15 13:48:50] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:48:51] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:48:54] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Hot-Zone-A
+[2025-11-15 13:48:54] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Room-Zone-B
+[2025-11-15 13:48:58] ✅ CHARGING COMPLETE - AGV-001 (19.0% → 100%)
+[2025-11-15 13:49:00] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:49:00] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:49:02] 🚗 MOVEMENT - AGV-001: (100, 50) → Unsorted-Area
+[2025-11-15 13:49:03] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Room-Zone-A
+[2025-11-15 13:49:04] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Room-Zone-A
+[2025-11-15 13:49:06] 🚗 MOVEMENT - AGV-001: Unsorted-Area → Room-Zone-A
+[2025-11-15 13:49:09] 🚗 MOVEMENT - AGV-002: (100, 50) → Unsorted-Area
+[2025-11-15 13:49:10] 🚗 MOVEMENT - AGV-003: (100, 50) → Unsorted-Area
+[2025-11-15 13:49:13] 🚗 MOVEMENT - AGV-002: Unsorted-Area → Room-Zone-B
+[2025-11-15 13:49:14] 🚗 MOVEMENT - AGV-003: Unsorted-Area → Hot-Zone-B
+
+============================================================
+  Session ended: 2025-11-15 13:49:34
+============================================================
