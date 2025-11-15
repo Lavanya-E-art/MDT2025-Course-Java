@@ -7,13 +7,27 @@ public class TransportTask extends Task {
     private StorageZone targetZone;
     
     public TransportTask(int priority,Item item, 
-                        StorageZone sourceZone, StorageZone targetZone) {
-        super("Transport " + item.getName() + " from " + sourceZone.getZoneName() + 
-              " to " + targetZone.getZoneName(), priority);
+                        StorageZone sourceZone, StorageZone targetZone)  {
+    	try {
+    	  double tempDiff = Math.abs(targetZone.getTemperature() - item.getRequiredTemperature());
+    	    if (tempDiff > 5) {
+    	        throw new Exception(
+    	            String.format("Temperature mismatch! Item needs %.0f°C but target zone is %.0f°C",
+    	                item.getRequiredTemperature(), targetZone.getTemperature())
+    	        );
+    	    }
+    	    super.setName("Transport " + item.getName() + 
+                    " from " + sourceZone.getZoneName() + 
+                    " to " + targetZone.getZoneName());
+      super.setPriority(priority);
        
         this.item = item;
         this.sourceZone = sourceZone;
         this.targetZone = targetZone;
+    	}
+    	catch(Exception e) {
+    		System.out.print(""+e.getMessage());
+    	}
     }
     
     @Override

@@ -16,6 +16,9 @@ public abstract class Task implements Runnable {
 //    can be part of agv but here the thought was may be we can put agv at rest depending on the task done
     private Position restArea;
     protected SystemLogger logger;
+    public Task() {
+    	
+    }
     
     public Task(String name, int priority) {
         this.id = ++counter;
@@ -62,9 +65,17 @@ public abstract class Task implements Runnable {
     public void setStatus(String status) { this.status = status; }
 //    public boolean isRunning() { return running; }
     public void setRestArea(Position restArea) { this.restArea = restArea; }
-    
+    public void setName(String name) {
+    	this.name=name;
+    }
     @Override
     public String toString() {
         return "Task-" + id + ": " + name + " [" + status + "] Priority:" + priority;
     }
+
+	public void setPriority(int priority) {
+		this.priority=priority;
+		// TODO Auto-generated method stub
+		
+	}
 }
