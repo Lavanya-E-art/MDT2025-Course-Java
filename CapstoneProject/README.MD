@@ -29,7 +29,7 @@ For all the assignments related to this course, please visit the [Assignments Re
 
 ## User Interface Explanation Video
 
-[Video Explanation - User Interface Walkthrough](https://fhdoprod-my.sharepoint.com/:v:/g/personal/lavanya_eswarappa001_stud_fh-dortmund_de/EafLCkVRNydLuvyzYjtIPm0BQ_UZxDoZ3K2H36knhF-Khg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=CxRESt)
+[Video Explanation - User Interface Walkthrough](https://fhdoprod-my.sharepoint.com/:v:/g/personal/lavanya_eswarappa001_stud_fh-dortmund_de/EafLCkVRNydLuvyzYjtIPm0BT-MdHYydphPD2RKCIve4IA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=yHgaIR)
 
 ## Code Explanation Video
 
