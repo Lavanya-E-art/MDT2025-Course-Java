@@ -26,6 +26,11 @@ For details about the Capstone Project, please refer to the [GitHub repository](
 
 For all the assignments related to this course, please visit the [Assignments Repository](https://github.com/Lavanya-E-art/MDT2025-Course-Java).
 
+
+## User Interface Explanation Video
+
+[Video Explanation - User Interface Walkthrough](https://fhdoprod-my.sharepoint.com/:v:/g/personal/lavanya_eswarappa001_stud_fh-dortmund_de/EafLCkVRNydLuvyzYjtIPm0BT-MdHYydphPD2RKCIve4IA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=yHgaIR)
+
 ## Code Explanation Video
 
 To better understand the project code and the logic behind it, you can watch the video explanation provided by our team. Click the link below to access the video:
