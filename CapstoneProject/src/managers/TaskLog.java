@@ -9,6 +9,7 @@ class TaskLog extends SystemLog {
         super(logDirectory, "task_log_" + timestamp + ".txt");
     }
     
+//    since this is checked exception throws could also been used
     @Override
     protected void initializeLogFile() {
         try {
@@ -16,7 +17,7 @@ class TaskLog extends SystemLog {
             writeHeader();
             System.out.println(" Task Log initialized: " + logFilePath);
         } catch (IOException e) {
-            System.err.println("Error initializing Task log: " + e.getMessage());
+            System.err.println(" Error initializing Task log: " + e.getMessage());
         }
     }
     
@@ -38,14 +39,14 @@ class TaskLog extends SystemLog {
         String log = String.format("%s  CREATED - Task-%d: %s (Priority: %d)",
             getTimestamp(), taskId, taskName, priority);
         writeToFile(log);
-        System.out.println("  " + log);
+        System.out.println(" " + log);
     }
     
     public synchronized void logTaskAssigned(int taskId, String agvId) {
-        String log = String.format("%s ASSIGNED - Task-%d  AGV-%s",
+        String log = String.format("%s ASSIGNED - Task-%d â†’ AGV-%s",
             getTimestamp(), taskId, agvId);
         writeToFile(log);
-        System.out.println("– " + log);
+        System.out.println(" " + log);
     }
     
     public synchronized void logTaskStarted(int taskId, String taskName, String agvId) {
@@ -57,9 +58,9 @@ class TaskLog extends SystemLog {
     
     public synchronized void logTaskCompleted(int taskId, String status) {
         String log = String.format("%s %s %s - Task-%d",
-            getTimestamp(),  status, taskId);
+            getTimestamp(), status, status, taskId);
         writeToFile(log);
-        System.out.println( " " + log);
+        System.out.println(" " + log);
     }
 }
 

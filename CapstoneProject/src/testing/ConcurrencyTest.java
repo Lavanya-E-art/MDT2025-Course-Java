@@ -32,10 +32,10 @@ public class ConcurrencyTest {
     private static int testsFailed = 0;
     
     public static void main(String[] args) {
-        System.out.println("\n╔═══════════════════════════════════════════════╗");
-        System.out.println("║  TEST 4: CONCURRENCY & THREAD SAFETY          ║");
-        System.out.println("║  Tester: Team Member 4                        ║");
-        System.out.println("╚═══════════════════════════════════════════════╝\n");
+        System.out.println("\n ");
+        System.out.println(" TEST 4: CONCURRENCY & THREAD SAFETY");
+        System.out.println(" Tester: Team Member 4");
+        System.out.println(" \n");
         
         printConcurrencyExplanation();
         
@@ -49,40 +49,39 @@ public class ConcurrencyTest {
     
     // ========== CONCURRENCY EXPLANATION ==========
     private static void printConcurrencyExplanation() {
-        System.out.println("\n╔═══════════════════════════════════════════════╗");
-        System.out.println("║  WHAT IS CONCURRENCY?                         ║");
-        System.out.println("╚═══════════════════════════════════════════════╝");
-        System.out.println();
-        System.out.println("  📚 EXPLANATION:");
-        System.out.println("  ───────────────");
-        System.out.println("  Concurrency = Multiple operations happening simultaneously");
-        System.out.println();
-        System.out.println("  🏭 IN OUR WAREHOUSE SYSTEM:");
-        System.out.println("  • Multiple AGVs moving at the same time");
-        System.out.println("  • Multiple tasks being executed in parallel");
-        System.out.println("  • Multiple threads accessing shared resources");
-        System.out.println();
-        System.out.println("  ⚠️  THE PROBLEM:");
-        System.out.println("  Without thread safety, this can happen:");
-        System.out.println("  Thread 1: Reads zone has 5 items");
-        System.out.println("  Thread 2: Reads zone has 5 items (same time!)");
-        System.out.println("  Thread 1: Adds item → zone now has 6 items");
-        System.out.println("  Thread 2: Adds item → overwrites to 6 items (should be 7!)");
-        System.out.println("  Result: Lost update! ❌");
-        System.out.println();
-        System.out.println("  ✅ THE SOLUTION:");
-        System.out.println("  Use 'synchronized' keyword:");
-        System.out.println("  • Only ONE thread can access synchronized method at a time");
-        System.out.println("  • Other threads wait in line");
-        System.out.println("  • Prevents data corruption");
-        System.out.println();
-        System.out.println("  🔍 WHERE WE USE IT:");
-        System.out.println("  • StorageZone.addItem() - synchronized");
-        System.out.println("  • StorageZone.removeItem() - synchronized");
-        System.out.println("  • ChargingStation.chargeAGV() - synchronized");
-        System.out.println("  • AGV.moveTo() - synchronized");
-        System.out.println();
-        System.out.println("═══════════════════════════════════════════════\n");
+        System.out.println("\n--------------------------------------------------");
+        System.out.println(" WHAT IS CONCURRENCY?");
+        System.out.println("--------------------------------------------------\n");
+        
+        System.out.println(" EXPLANATION:");
+        System.out.println(" Concurrency = Multiple operations happening simultaneously\n");
+        
+        System.out.println(" IN OUR WAREHOUSE SYSTEM:");
+        System.out.println(" - Multiple AGVs moving at the same time");
+        System.out.println(" - Multiple tasks being executed in parallel");
+        System.out.println(" - Multiple threads accessing shared resources\n");
+        
+        System.out.println(" THE PROBLEM:");
+        System.out.println(" Without thread safety, this can happen:");
+        System.out.println(" Thread 1: Reads zone has 5 items");
+        System.out.println(" Thread 2: Reads zone has 5 items (same time!)");
+        System.out.println(" Thread 1: Adds item -> zone now has 6 items");
+        System.out.println(" Thread 2: Adds item -> overwrites to 6 items (should be 7!)");
+        System.out.println(" Result: Lost update!\n");
+        
+        System.out.println(" THE SOLUTION:");
+        System.out.println(" Use 'synchronized' keyword:");
+        System.out.println(" - Only ONE thread can access synchronized method at a time");
+        System.out.println(" - Other threads wait in line");
+        System.out.println(" - Prevents data corruption\n");
+        
+        System.out.println(" WHERE WE USE IT:");
+        System.out.println(" - StorageZone.addItem() - synchronized");
+        System.out.println(" - StorageZone.removeItem() - synchronized");
+        System.out.println(" - ChargingStation.chargeAGV() - synchronized");
+        System.out.println(" - AGV.moveTo() - synchronized\n");
+        
+        System.out.println("--------------------------------------------------\n");
     }
     
     // ========== TEST STORAGE ZONE CONCURRENCY ==========
@@ -91,10 +90,10 @@ public class ConcurrencyTest {
         
         // Test 1: Multiple threads adding items simultaneously
         try {
-            System.out.println("\n  📝 TEST SCENARIO:");
-            System.out.println("  Creating 10 threads, each adding 5 items");
-            System.out.println("  Expected result: 50 items total");
-            System.out.println("  If not synchronized: items could be lost!\n");
+            System.out.println("\n TEST SCENARIO:");
+            System.out.println(" Creating 10 threads, each adding 5 items");
+            System.out.println(" Expected result: 50 items total");
+            System.out.println(" If not synchronized: items could be lost!\n");
             
             StorageZone zone = new StorageZone("Concurrent-Zone", 20.0, 100, new Position(100, 100));
             
@@ -129,14 +128,14 @@ public class ConcurrencyTest {
                 threads[i].start();
             }
             
-            System.out.println("  🏁 Starting all threads simultaneously...");
+            System.out.println(" Starting all threads simultaneously...");
             startSignal.countDown(); // Start all threads at once!
             
-            System.out.println("  ⏳ Waiting for all threads to complete...");
+            System.out.println(" Waiting for all threads to complete...");
             doneSignal.await(10, TimeUnit.SECONDS); // Wait for all threads
             
             int finalCount = zone.getItems().size();
-            System.out.println("  📊 Result: " + finalCount + " items (expected 50)\n");
+            System.out.println(" Result: " + finalCount + " items (expected 50)\n");
             
             assertEquals(50, finalCount, "Multiple threads adding items concurrently");
             
@@ -146,10 +145,10 @@ public class ConcurrencyTest {
         
         // Test 2: Concurrent add and remove
         try {
-            System.out.println("\n  📝 TEST SCENARIO:");
-            System.out.println("  Thread 1: Adding items");
-            System.out.println("  Thread 2: Removing items");
-            System.out.println("  Both running simultaneously!\n");
+            System.out.println("\n TEST SCENARIO:");
+            System.out.println(" Thread 1: Adding items");
+            System.out.println(" Thread 2: Removing items");
+            System.out.println(" Both running simultaneously!\n");
             
             StorageZone zone = new StorageZone("AddRemove-Zone", 20.0, 100, new Position(100, 100));
             
@@ -185,15 +184,15 @@ public class ConcurrencyTest {
                 }
             });
             
-            System.out.println("  🏁 Starting add and remove threads...");
+            System.out.println(" Starting add and remove threads...");
             adder.start();
             remover.start();
             
             adder.join();
             remover.join();
             
-            System.out.println("  📊 Final count: " + zone.getItems().size() + " items");
-            System.out.println("  ✅ No crashes = synchronized methods work!\n");
+            System.out.println(" Final count: " + zone.getItems().size() + " items");
+            System.out.println(" No crashes = synchronized methods work!\n");
             
             testPassed("Concurrent add and remove operations");
             
@@ -208,9 +207,9 @@ public class ConcurrencyTest {
         
         // Test 1: Multiple AGVs moving simultaneously
         try {
-            System.out.println("\n  📝 TEST SCENARIO:");
-            System.out.println("  3 AGVs moving to different positions at same time");
-            System.out.println("  Each AGV's movement is in its own thread\n");
+            System.out.println("\n TEST SCENARIO:");
+            System.out.println(" 3 AGVs moving to different positions at same time");
+            System.out.println(" Each AGV's movement is in its own thread\n");
             
             AGV agv1 = new AGV("001", new Position(0, 0));
             AGV agv2 = new AGV("002", new Position(0, 0));
@@ -222,9 +221,9 @@ public class ConcurrencyTest {
             
             Thread thread1 = new Thread(() -> {
                 try {
-                    System.out.println("  🤖 AGV-001 starting movement...");
+                    System.out.println(" AGV-001 starting movement...");
                     agv1.moveTo(dest1);
-                    System.out.println("  ✅ AGV-001 reached destination");
+                    System.out.println(" AGV-001 reached destination");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -232,9 +231,9 @@ public class ConcurrencyTest {
             
             Thread thread2 = new Thread(() -> {
                 try {
-                    System.out.println("  🤖 AGV-002 starting movement...");
+                    System.out.println(" AGV-002 starting movement...");
                     agv2.moveTo(dest2);
-                    System.out.println("  ✅ AGV-002 reached destination");
+                    System.out.println(" AGV-002 reached destination");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -242,15 +241,15 @@ public class ConcurrencyTest {
             
             Thread thread3 = new Thread(() -> {
                 try {
-                    System.out.println("  🤖 AGV-003 starting movement...");
+                    System.out.println(" AGV-003 starting movement...");
                     agv3.moveTo(dest3);
-                    System.out.println("  ✅ AGV-003 reached destination");
+                    System.out.println(" AGV-003 reached destination");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             });
             
-            System.out.println("  🏁 Starting all AGVs...\n");
+            System.out.println(" Starting all AGVs...\n");
             thread1.start();
             thread2.start();
             thread3.start();
@@ -259,7 +258,7 @@ public class ConcurrencyTest {
             thread2.join();
             thread3.join();
             
-            System.out.println("\n  📊 Checking final positions...");
+            System.out.println("\n Checking final positions...");
             assertEquals(100.0, agv1.getPosition().getX(), "AGV-001 final X position");
             assertEquals(200.0, agv2.getPosition().getX(), "AGV-002 final X position");
             assertEquals(150.0, agv3.getPosition().getX(), "AGV-003 final X position");
@@ -270,8 +269,8 @@ public class ConcurrencyTest {
         
         // Test 2: AGV status during movement
         try {
-            System.out.println("\n  📝 TEST SCENARIO:");
-            System.out.println("  Check AGV status changes during movement\n");
+            System.out.println("\n TEST SCENARIO:");
+            System.out.println(" Check AGV status changes during movement\n");
             
             AGV agv = new AGV("TEST-001", new Position(0, 0));
             
@@ -286,12 +285,12 @@ public class ConcurrencyTest {
             moveThread.start();
             Thread.sleep(500); // Let it start moving
             
-            System.out.println("  📊 Status during movement: " + agv.getStatus());
+            System.out.println(" Status during movement: " + agv.getStatus());
             assertEquals("MOVING", agv.getStatus(), "AGV status during movement");
             
             moveThread.join(); // Wait for completion
             
-            System.out.println("  📊 Status after movement: " + agv.getStatus());
+            System.out.println(" Status after movement: " + agv.getStatus());
             assertEquals("IDLE", agv.getStatus(), "AGV status after movement");
             
         } catch (Exception e) {
@@ -305,9 +304,9 @@ public class ConcurrencyTest {
         
         // Test 1: Multiple AGVs trying to charge at same station
         try {
-            System.out.println("\n  📝 TEST SCENARIO:");
-            System.out.println("  3 AGVs trying to charge at 1 station simultaneously");
-            System.out.println("  Only 1 should succeed (synchronized prevents conflicts)\n");
+            System.out.println("\n TEST SCENARIO:");
+            System.out.println(" 3 AGVs trying to charge at 1 station simultaneously");
+            System.out.println(" Only 1 should succeed (synchronized prevents conflicts)\n");
             
             ChargingStation station = new ChargingStation("CS-CONCURRENT", new Position(200, 700));
             AGV agv1 = new AGV("001", new Position(0, 0));
@@ -322,7 +321,7 @@ public class ConcurrencyTest {
                     startSignal.await();
                     boolean result = station.chargeAGV(agv1);
                     results.add(result);
-                    System.out.println("  AGV-001 charge result: " + result);
+                    System.out.println(" AGV-001 charge result: " + result);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -333,7 +332,7 @@ public class ConcurrencyTest {
                     startSignal.await();
                     boolean result = station.chargeAGV(agv2);
                     results.add(result);
-                    System.out.println("  AGV-002 charge result: " + result);
+                    System.out.println(" AGV-002 charge result: " + result);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -344,7 +343,7 @@ public class ConcurrencyTest {
                     startSignal.await();
                     boolean result = station.chargeAGV(agv3);
                     results.add(result);
-                    System.out.println("  AGV-003 charge result: " + result);
+                    System.out.println(" AGV-003 charge result: " + result);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -354,7 +353,7 @@ public class ConcurrencyTest {
             thread2.start();
             thread3.start();
             
-            System.out.println("  🏁 All AGVs attempting to charge at once...\n");
+            System.out.println(" All AGVs attempting to charge at once...\n");
             startSignal.countDown(); // Start all at once!
             
             thread1.join();
@@ -364,8 +363,8 @@ public class ConcurrencyTest {
             // Count successes
             long successCount = results.stream().filter(r -> r).count();
             
-            System.out.println("\n  📊 Result: " + successCount + " AGV(s) successfully charged");
-            System.out.println("  Expected: Only 1 (synchronized prevents multiple access)\n");
+            System.out.println("\n Result: " + successCount + " AGV(s) successfully charged");
+            System.out.println(" Expected: Only 1 (synchronized prevents multiple access)\n");
             
             assertEquals(1L, successCount, "Only one AGV can charge (thread-safe)");
             
@@ -380,8 +379,8 @@ public class ConcurrencyTest {
         
         // Test 1: Multiple tasks added concurrently
         try {
-            System.out.println("\n  📝 TEST SCENARIO:");
-            System.out.println("  Multiple threads adding tasks simultaneously\n");
+            System.out.println("\n TEST SCENARIO:");
+            System.out.println(" Multiple threads adding tasks simultaneously\n");
             
             AGVManager agvManager = new AGVManager();
             agvManager.addAGV(new AGV("001", new Position(80, 50)));
@@ -416,7 +415,7 @@ public class ConcurrencyTest {
                                 zone2
                             );
                             taskManager.addTask(task);
-                            System.out.println("  Thread " + threadNum + " added task");
+                            System.out.println(" Thread " + threadNum + " added task");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -426,13 +425,13 @@ public class ConcurrencyTest {
                 }).start();
             }
             
-            System.out.println("  🏁 Adding tasks from 5 threads simultaneously...\n");
+            System.out.println(" Adding tasks from 5 threads simultaneously...\n");
             startSignal.countDown();
             doneSignal.await(5, TimeUnit.SECONDS);
             
             Thread.sleep(1000); // Let tasks process
             
-            System.out.println("  ✅ All tasks added without conflicts\n");
+            System.out.println(" All tasks added without conflicts\n");
             testPassed("Concurrent task addition");
             
         } catch (Exception e) {
@@ -443,9 +442,9 @@ public class ConcurrencyTest {
     // ========== HELPER METHODS ==========
     
     private static void printTestSection(String section) {
-        System.out.println("\n┌─────────────────────────────────────────────┐");
-        System.out.println("│ " + String.format("%-43s", section) + " │");
-        System.out.println("└─────────────────────────────────────────────┘");
+        System.out.println("\n--------------------------------------------------");
+        System.out.println(" " + section);
+        System.out.println("--------------------------------------------------");
     }
     
     private static void assertEquals(Object expected, Object actual, String testName) {
@@ -465,34 +464,31 @@ public class ConcurrencyTest {
     }
     
     private static void testPassed(String testName) {
-        System.out.println("  ✅ PASS: " + testName);
+        System.out.println(" PASS: " + testName);
         testsPassed++;
     }
     
     private static void testFailed(String testName, String reason) {
-        System.out.println("  ❌ FAIL: " + testName);
-        System.out.println("     → " + reason);
+        System.out.println(" FAIL: " + testName);
+        System.out.println("    -> " + reason);
         testsFailed++;
     }
     
     private static void printSummary() {
-        System.out.println("\n╔═══════════════════════════════════════════════╗");
-        System.out.println("║  TEST SUMMARY - CONCURRENCY & THREAD SAFETY   ║");
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.println("║  ✅ Tests Passed: " + String.format("%-28s", testsPassed) + "║");
-        System.out.println("║  ❌ Tests Failed: " + String.format("%-28s", testsFailed) + "║");
+        System.out.println("\n ");
+        System.out.println(" TEST SUMMARY - CONCURRENCY & THREAD SAFETY");
+        System.out.println(" ");
+        System.out.println(" Tests Passed: " + testsPassed);
+        System.out.println(" Tests Failed: " + testsFailed);
         int total = testsPassed + testsFailed;
         int successRate = total > 0 ? (100 * testsPassed / total) : 0;
-        System.out.println("║  📊 Success Rate: " + successRate + "%                          ║");
-        System.out.println("╚═══════════════════════════════════════════════╝\n");
+        System.out.println(" Success Rate: " + successRate + "%\n");
         
-        System.out.println("╔═══════════════════════════════════════════════╗");
-        System.out.println("║  KEY CONCURRENCY CONCEPTS TESTED              ║");
-        System.out.println("╚═══════════════════════════════════════════════╝");
-        System.out.println("  ✅ Thread Safety - synchronized methods");
-        System.out.println("  ✅ Race Conditions - prevented by synchronization");
-        System.out.println("  ✅ Concurrent Access - multiple threads, no conflicts");
-        System.out.println("  ✅ Resource Locking - charging stations");
-        System.out.println("═══════════════════════════════════════════════\n");
+        System.out.println(" KEY CONCURRENCY CONCEPTS TESTED:");
+        System.out.println(" - Thread Safety - synchronized methods");
+        System.out.println(" - Race Conditions - prevented by synchronization");
+        System.out.println(" - Concurrent Access - multiple threads, no conflicts");
+        System.out.println(" - Resource Locking - charging stations");
+        System.out.println(" \n");
     }
 }

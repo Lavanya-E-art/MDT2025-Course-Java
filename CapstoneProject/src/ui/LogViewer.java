@@ -51,20 +51,20 @@ public class LogViewer extends BorderPane {
         
         // Search field
         searchField = new TextField();
-        searchField.setPromptText("🔍 Search logs (e.g., AGV-001, Task-5, CHARGING)");
+        searchField.setPromptText(" Search logs (e.g., AGV-001, Task-5, CHARGING)");
         searchField.setPrefWidth(350);
         
         // Buttons
-        Button refreshBtn = new Button("🔄 Refresh");
+        Button refreshBtn = new Button(" Refresh");
         refreshBtn.setOnAction(e -> refreshLogFiles());
         
-        Button searchBtn = new Button("🔍 Search");
+        Button searchBtn = new Button(" Search");
         searchBtn.setOnAction(e -> performSearch());
         
-        Button clearSearchBtn = new Button("✖ Clear");
+        Button clearSearchBtn = new Button(" Clear");
         clearSearchBtn.setOnAction(e -> clearSearch());
         
-        openExternalBtn = new Button("📂 Open in External App");
+        openExternalBtn = new Button(" Open in External App");
         openExternalBtn.setDisable(true);
         openExternalBtn.setOnAction(e -> openInExternalApp());
         
@@ -75,7 +75,7 @@ public class LogViewer extends BorderPane {
         logContentArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12px;");
         
         // Status label
-        statusLabel = new Label("📁 Select a log type and file to view");
+        statusLabel = new Label(" Select a log type and file to view");
         statusLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #666;");
     }
     
@@ -93,13 +93,13 @@ public class LogViewer extends BorderPane {
         
         // Second row: Search controls
         HBox searchRow = new HBox(10);
-        Button refreshBtn = new Button("🔄 Refresh");
+        Button refreshBtn = new Button(" Refresh");
         refreshBtn.setOnAction(e -> refreshLogFiles());
         
-        Button searchBtn = new Button("🔍 Search");
+        Button searchBtn = new Button(" Search");
         searchBtn.setOnAction(e -> performSearch());
         
-        Button clearSearchBtn = new Button("✖ Clear");
+        Button clearSearchBtn = new Button(" Clear");
         clearSearchBtn.setOnAction(e -> clearSearch());
         
         searchRow.getChildren().addAll(
@@ -129,14 +129,14 @@ public class LogViewer extends BorderPane {
         
         File logDir = new File(LOG_DIRECTORY);
         if (!logDir.exists() || !logDir.isDirectory()) {
-            statusLabel.setText("⚠️ Log directory not found. Logs will be created when system runs.");
+            statusLabel.setText(" Log directory not found. Logs will be created when system runs.");
             statusLabel.setStyle("-fx-text-fill: orange;");
             return;
         }
         
         File[] logFiles = logDir.listFiles((dir, name) -> name.endsWith(".txt"));
         if (logFiles == null || logFiles.length == 0) {
-            statusLabel.setText("📭 No log files found. Run the system to generate logs.");
+            statusLabel.setText(" No log files found. Run the system to generate logs.");
             statusLabel.setStyle("-fx-text-fill: #666;");
             return;
         }
@@ -150,7 +150,7 @@ public class LogViewer extends BorderPane {
         }
         
         filterLogFiles();
-        statusLabel.setText("✅ Found " + logFiles.length + " log file(s)");
+        statusLabel.setText(" Found " + logFiles.length + " log file(s)");
         statusLabel.setStyle("-fx-text-fill: green;");
     }
     
@@ -201,14 +201,14 @@ public class LogViewer extends BorderPane {
             
             // Count lines
             long lineCount = content.lines().count();
-            statusLabel.setText("📄 Loaded: " + selectedFile + " (" + lineCount + " lines)");
+            statusLabel.setText(" Loaded: " + selectedFile + " (" + lineCount + " lines)");
             statusLabel.setStyle("-fx-text-fill: green;");
             
             openExternalBtn.setDisable(false);
             
         } catch (IOException e) {
-            logContentArea.setText("❌ Error loading log file: " + e.getMessage());
-            statusLabel.setText("❌ Failed to load file");
+            logContentArea.setText(" Error loading log file: " + e.getMessage());
+            statusLabel.setText(" Failed to load file");
             statusLabel.setStyle("-fx-text-fill: red;");
             openExternalBtn.setDisable(true);
         }
@@ -217,14 +217,14 @@ public class LogViewer extends BorderPane {
     private void performSearch() {
         String searchTerm = searchField.getText().trim();
         if (searchTerm.isEmpty()) {
-            statusLabel.setText("⚠️ Enter a search term");
+            statusLabel.setText(" Enter a search term");
             statusLabel.setStyle("-fx-text-fill: orange;");
             return;
         }
         
         String selectedFile = logFileCombo.getValue();
         if (selectedFile == null) {
-            statusLabel.setText("⚠️ Select a log file first");
+            statusLabel.setText(" Select a log file first");
             statusLabel.setStyle("-fx-text-fill: orange;");
             return;
         }
@@ -240,12 +240,12 @@ public class LogViewer extends BorderPane {
                 .collect(Collectors.toList());
             
             if (matchingLines.isEmpty()) {
-                logContentArea.setText("🔍 No results found for: \"" + searchTerm + "\"");
-                statusLabel.setText("🔍 0 matches found");
+                logContentArea.setText(" No results found for: \"" + searchTerm + "\"");
+                statusLabel.setText(" 0 matches found");
                 statusLabel.setStyle("-fx-text-fill: orange;");
             } else {
                 StringBuilder result = new StringBuilder();
-                result.append("🔍 Search Results for: \"").append(searchTerm).append("\"\n");
+                result.append(" Search Results for: \"").append(searchTerm).append("\"\n");
                 result.append("=".repeat(80)).append("\n\n");
                 
                 for (String line : matchingLines) {
@@ -253,13 +253,13 @@ public class LogViewer extends BorderPane {
                 }
                 
                 logContentArea.setText(result.toString());
-                statusLabel.setText("✅ Found " + matchingLines.size() + " matching line(s)");
+                statusLabel.setText(" Found " + matchingLines.size() + " matching line(s)");
                 statusLabel.setStyle("-fx-text-fill: green;");
             }
             
         } catch (IOException e) {
-            logContentArea.setText("❌ Error searching log file: " + e.getMessage());
-            statusLabel.setText("❌ Search failed");
+            logContentArea.setText(" Error searching log file: " + e.getMessage());
+            statusLabel.setText(" Search failed");
             statusLabel.setStyle("-fx-text-fill: red;");
         }
     }
@@ -283,17 +283,17 @@ public class LogViewer extends BorderPane {
                 java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
                 if (logFile.exists()) {
                     desktop.open(logFile);
-                    statusLabel.setText("📂 Opened in external application");
+                    statusLabel.setText(" Opened in external application");
                     statusLabel.setStyle("-fx-text-fill: green;");
                 }
             } else {
                 // Fallback: Show file location
-                statusLabel.setText("📁 File location: " + logFile.getAbsolutePath());
+                statusLabel.setText(" File location: " + logFile.getAbsolutePath());
                 statusLabel.setStyle("-fx-text-fill: blue;");
             }
             
         } catch (IOException e) {
-            statusLabel.setText("❌ Cannot open file: " + e.getMessage());
+            statusLabel.setText(" Cannot open file: " + e.getMessage());
             statusLabel.setStyle("-fx-text-fill: red;");
         }
     }

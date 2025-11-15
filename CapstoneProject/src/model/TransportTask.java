@@ -18,15 +18,15 @@ public class TransportTask extends Task {
     
     @Override
     public void execute() throws Exception {
-        AGV agv = this.getAssignedAGV();
+        AGV agv = getAssignedAGV();
         if (agv == null) {
             throw new Exception("No AGV assigned");
         }
         
-        // Check battery before starting in case auto charge triggering failed
+        // Check battery before starting
         if (agv.getBatteryLevel() <= 20) {
             logger.logWarning("AGV-" + agv.getId(), "Battery too low for transport task");
-            throw new Exception("AGV-" + agv.getId() + " battery too low. Please charge first!");
+            throw new Exception("AGV-" + agv.getId() + " battery too low (≤20%). Please charge first!");
         }
         
         logger.logItemTransport(item.getName(), sourceZone.getZoneName(), targetZone.getZoneName());
@@ -44,12 +44,12 @@ public class TransportTask extends Task {
         sourceZone.removeItem(item);
         
         // Move to destination and unload
-        System.out.println(" Moving to destination: " + this.targetZone.getZoneName());
-        Position targetPos = new Position(this.targetZone.getPosition().getX(), targetZone.getPosition().getY());
+        System.out.println(" Moving to destination: " + targetZone.getZoneName());
+        Position targetPos = new Position(targetZone.getPosition().getX(), targetZone.getPosition().getY());
         agv.moveTo(targetPos);
         logger.logAGVMovement(agv.getId(), sourceZone.getZoneName(), targetZone.getZoneName());
         
-        System.out.println(" Unloading item: " + this.item.getName());
+        System.out.println(" Unloading item: " + item.getName());
         Thread.sleep(1500);
         targetZone.addItem(item);
         

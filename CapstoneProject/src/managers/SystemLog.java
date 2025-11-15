@@ -35,7 +35,7 @@ public abstract class SystemLog {
                 logWriter.flush();
             }
         } catch (IOException e) {
-            System.err.println("❌ Error writing to log file: " + e.getMessage());
+            System.err.println(" Error writing to log file: " + e.getMessage());
         }
     }
     
@@ -56,7 +56,7 @@ public abstract class SystemLog {
                 logWriter.close();
             }
         } catch (IOException e) {
-            System.err.println("❌ Error closing log file: " + e.getMessage());
+            System.err.println(" Error closing log file: " + e.getMessage());
         }
     }
     

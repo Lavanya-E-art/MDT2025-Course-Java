@@ -25,9 +25,8 @@ public class Item {
     
     @Override
     public String toString() {
-        String tempIcon = requiredTemperature <= 0 ? "❄️" : 
-                         requiredTemperature <= 25 ? "🌡️" : "🔥";
-        return name + " " + tempIcon + " (" + String.format("%.0f°C", requiredTemperature) + ")";
+       
+        return name + " "  + " (" + String.format("%.0f�C", requiredTemperature) + ")";
     }
     
     @Override

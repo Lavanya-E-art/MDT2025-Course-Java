@@ -52,10 +52,14 @@ public class AGV {
         this.status = busy ? "BUSY" : "IDLE";
     }
     public String getStatus() { return status; }
+    public void setStatus(String status) {
+    	this.status=status;
+    }
+    
     
     @Override
     public String toString() {
-        String battIcon = batteryLevel > 50 ? "🔋" : batteryLevel > 20 ? "🪫" : "⚠️";
+        String battIcon = batteryLevel > 50 ? "ðŸ”‹" : batteryLevel > 20 ? "ðŸª«" : "âš ï¸�";
         return String.format("AGV-%s %s %.0f%%", id, battIcon, batteryLevel);
     }
     

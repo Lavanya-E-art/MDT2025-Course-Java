@@ -9,7 +9,7 @@ public abstract class Task implements Runnable {
     private int priority;
     private AGV assignedAGV;
 //    private StorageZone storageZone; was useful when load , unload 
-    private String status;
+    private volatile String status;
 //    volatile means changes to this variable are visible to all threads immediately.
 //    So if one thread sets running = false, other threads see the change without synchronization.
 //    private volatile boolean running;

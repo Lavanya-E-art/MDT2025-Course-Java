@@ -46,7 +46,7 @@ public class AGVWarehouseSystem extends Application {
         mainTabs.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         // Tab 1: Warehouse Operations
-        Tab operationsTab = new Tab("🏭 Warehouse Operations");
+        Tab operationsTab = new Tab("� Warehouse Operations");
         BorderPane operationsPane = new BorderPane();
         
         // Left: Task Creation Panel
@@ -64,12 +64,12 @@ public class AGVWarehouseSystem extends Application {
         operationsTab.setContent(operationsPane);
 
         // Tab 2: Log Viewer
-        Tab logViewerTab = new Tab("📋 Log Viewer");
+        Tab logViewerTab = new Tab("� Log Viewer");
         logViewer = new LogViewer();
         logViewerTab.setContent(logViewer);
 
         // Tab 3: Console Output
-        Tab consoleTab = new Tab("💻 Console Output");
+        Tab consoleTab = new Tab("� Console Output");
         logArea = new TextArea();
         logArea.setEditable(false);
         logArea.setPrefHeight(700);
@@ -81,7 +81,7 @@ public class AGVWarehouseSystem extends Application {
         root.setCenter(mainTabs);
 
         Scene scene = new Scene(root, 1500, 850);
-        primaryStage.setTitle("🤖 AGV Warehouse Management System");
+        primaryStage.setTitle("� AGV Warehouse Management System");
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -100,7 +100,7 @@ public class AGVWarehouseSystem extends Application {
         // Cleanup on close
         primaryStage.setOnCloseRequest(e -> {
             logger.closeLogFiles();
-            System.out.println("👋 System shutdown complete");
+            System.out.println(" System shutdown complete");
         });
     }
 
@@ -122,15 +122,15 @@ public class AGVWarehouseSystem extends Application {
         agvManager.addAGV(new AGV("003", new Position(120, 50)));
 
         // Temperature-Controlled Zones
-        // Cold Zones (-20°C)
+        // Cold Zones (-20�C)
         storageZones.add(new StorageZone("Cold-Zone-A", -20.0, 10, new Position(250, 150)));
         storageZones.add(new StorageZone("Cold-Zone-B", -20.0, 10, new Position(850, 150)));
 
-        // Room Temperature Zones (20°C)
+        // Room Temperature Zones (20�C)
         storageZones.add(new StorageZone("Room-Zone-A", 20.0, 10, new Position(250, 350)));
         storageZones.add(new StorageZone("Room-Zone-B", 20.0, 10, new Position(850, 350)));
 
-        // Hot Zones (30°C)
+        // Hot Zones (30�C)
         storageZones.add(new StorageZone("Hot-Zone-A", 30.0, 10, new Position(250, 550)));
         storageZones.add(new StorageZone("Hot-Zone-B", 30.0, 10, new Position(850, 550)));
 
@@ -152,14 +152,14 @@ public class AGVWarehouseSystem extends Application {
                         reqTemps[i]);
                 unsortedArea.addItem(item);
             }
-            System.out.println("✅ " + unsortedArea.getItems().size() + " items loaded in Unsorted Area");
+            System.out.println(" " + unsortedArea.getItems().size() + " items loaded in Unsorted Area");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void createInitialSortingTasks() {
-        System.out.println("\n🚀 AUTO-SORTING: Creating tasks for " + unsortedArea.getItems().size() + " unsorted items...\n");
+        System.out.println("\n AUTO-SORTING: Creating tasks for " + unsortedArea.getItems().size() + " unsorted items...\n");
 
         List<Item> itemsToSort = new ArrayList<>(unsortedArea.getItems());
 
@@ -189,7 +189,7 @@ public class AGVWarehouseSystem extends Application {
             }
         }
 
-        Platform.runLater(() -> showStatus("✅ " + itemsToSort.size() + " auto-sorting tasks created!", false));
+        Platform.runLater(() -> showStatus(" " + itemsToSort.size() + " auto-sorting tasks created!", false));
     }
 
     private VBox createTaskCreationPanel() {
@@ -198,7 +198,7 @@ public class AGVWarehouseSystem extends Application {
         panel.setPrefWidth(300);
         panel.setStyle("-fx-background-color: #f0f0f0;");
 
-        Label title = new Label("📋 Manual Task Creation");
+        Label title = new Label("� Manual Task Creation");
         title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         statusLabel = new Label("");
@@ -206,7 +206,7 @@ public class AGVWarehouseSystem extends Application {
         statusLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #666;");
         statusLabel.setPrefHeight(40);
 
-        Button autoSortBtn = new Button("🔄 Auto-Sort All Items");
+        Button autoSortBtn = new Button(" Auto-Sort All Items");
         autoSortBtn.setPrefWidth(280);
         autoSortBtn.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;");
         autoSortBtn.setOnAction(e -> createInitialSortingTasks());
@@ -245,7 +245,7 @@ public class AGVWarehouseSystem extends Application {
             }
         });
 
-        Button createButton = new Button("✓ Create Transport Task");
+        Button createButton = new Button("Create Transport Task");
         createButton.setPrefWidth(280);
         createButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
         createButton.setOnAction(e -> {
@@ -256,21 +256,21 @@ public class AGVWarehouseSystem extends Application {
                 int priority = prioritySpinner.getValue();
 
                 if (source == null || target == null || item == null) {
-                    showStatus("❌ Please select source zone, target zone, and item", true);
+                    showStatus(" Please select source zone, target zone, and item", true);
                     return;
                 }
                 if (source.equals(target)) {
-                    showStatus("❌ Source and target zones must be different", true);
+                    showStatus(" Source and target zones must be different", true);
                     return;
                 }
                 if (!source.getItems().contains(item)) {
-                    showStatus("❌ Item not found in source zone", true);
+                    showStatus(" Item not found in source zone", true);
                     return;
                 }
 
                 double tempDiff = Math.abs(target.getTemperature() - item.getRequiredTemperature());
                 if (tempDiff > 5) {
-                    showStatus(String.format("⚠️ Temperature mismatch! Item needs %.0f°C but target zone is %.0f°C",
+                    showStatus(String.format("Temperature mismatch! Item needs %.0f�C but target zone is %.0f�C",
                             item.getRequiredTemperature(), target.getTemperature()), true);
                     return;
                 }
@@ -278,12 +278,12 @@ public class AGVWarehouseSystem extends Application {
                 TransportTask task = new TransportTask(priority, item, source, target);
                 taskManager.addTask(task);
 
-                String message = String.format("✓ Transport task: %s from %s to %s (Priority: %d)",
+                String message = String.format(" Transport task: %s from %s to %s (Priority: %d)",
                         item.getName(), source.getZoneName(), target.getZoneName(), priority);
                 showStatus(message, false);
 
             } catch (Exception ex) {
-                showStatus("❌ Error: " + ex.getMessage(), true);
+                showStatus(" Error: " + ex.getMessage(), true);
                 ex.printStackTrace();
             }
         });
@@ -299,7 +299,7 @@ public class AGVWarehouseSystem extends Application {
         VBox panel = new VBox(10);
         panel.setPadding(new Insets(10));
 
-        Label title = new Label("🏭 Warehouse Map - Temperature Zones");
+        Label title = new Label("� Warehouse Map - Temperature Zones");
         title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         warehousePane = new Pane();
@@ -316,17 +316,17 @@ public class AGVWarehouseSystem extends Application {
         panel.setPrefWidth(300);
         panel.setStyle("-fx-background-color: #f0f0f0;");
 
-        Label queueLabel = new Label("⏳ Task Queue (Priority Order):");
+        Label queueLabel = new Label(" Task Queue (Priority Order):");
         queueLabel.setStyle("-fx-font-weight: bold;");
         taskQueueView = new ListView<>();
         taskQueueView.setPrefHeight(200);
 
-        Label activeLabel = new Label("⚡ Active Tasks:");
+        Label activeLabel = new Label(" Active Tasks:");
         activeLabel.setStyle("-fx-font-weight: bold;");
         activeTasksView = new ListView<>();
         activeTasksView.setPrefHeight(200);
 
-        Label agvLabel = new Label("🤖 AGV Status:");
+        Label agvLabel = new Label("� AGV Status:");
         agvLabel.setStyle("-fx-font-weight: bold;");
         ListView<String> agvListView = new ListView<>();
         agvListView.setPrefHeight(150);
@@ -338,10 +338,9 @@ public class AGVWarehouseSystem extends Application {
                 Platform.runLater(() -> {
                     agvListView.getItems().clear();
                     for (AGV agv : agvManager.getAgvList()) {
-                        String battIcon = agv.getBatteryLevel() > 50 ? "🔋" :
-                                agv.getBatteryLevel() > 20 ? "🪫" : "⚠️";
+                       
                         agvListView.getItems().add(String.format("%s AGV-%s [%s] %.0f%%",
-                                battIcon, agv.getId(), agv.getStatus(), agv.getBatteryLevel()));
+                                "battery", agv.getId(), agv.getStatus(), agv.getBatteryLevel()));
                     }
                 });
             }
@@ -372,14 +371,14 @@ public class AGVWarehouseSystem extends Application {
         unsortedRect.setStroke(Color.ORANGE);
         unsortedRect.setStrokeWidth(3);
         Text unsortedLabel = new Text(unsortedArea.getPosition().getX() - 55,
-                unsortedArea.getPosition().getY() - 25, "📦 " + unsortedArea.getZoneName());
+                unsortedArea.getPosition().getY() - 25, " � " + unsortedArea.getZoneName());
         Text unsortedCount = new Text(unsortedArea.getPosition().getX() - 25,
                 unsortedArea.getPosition().getY() + 5, unsortedArea.getItems().size() + " items");
         unsortedCount.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
         warehousePane.getChildren().addAll(unsortedRect, unsortedLabel, unsortedCount);
 
         // Draw Storage Zones
-        String[] icons = {"❄️", "❄️", "🌡️", "🌡️", "🔥", "🔥"};
+        
         Color[] colors = {Color.LIGHTBLUE, Color.LIGHTCYAN, Color.LIGHTGREEN, Color.PALEGREEN, Color.LIGHTCORAL, Color.LIGHTSALMON};
         for (int i = 0; i < storageZones.size(); i++) {
             StorageZone zone = storageZones.get(i);
@@ -389,10 +388,9 @@ public class AGVWarehouseSystem extends Application {
             rect.setStroke(Color.DARKBLUE);
             rect.setStrokeWidth(2);
 
-            Text label = new Text(zone.getPosition().getX() - 55, zone.getPosition().getY() - 20,
-                    icons[i] + " " + zone.getZoneName());
+            Text label = new Text(zone.getPosition().getX() - 55, zone.getPosition().getY() - 20, " " + zone.getZoneName());
             Text temp = new Text(zone.getPosition().getX() - 55, zone.getPosition().getY(),
-                    String.format("%.0f°C | %d items", zone.getTemperature(), zone.getItems().size()));
+                    String.format("%.0f�C | %d items", zone.getTemperature(), zone.getItems().size()));
             temp.setStyle("-fx-font-size: 10px;");
 
             warehousePane.getChildren().addAll(rect, label, temp);
@@ -404,7 +402,7 @@ public class AGVWarehouseSystem extends Application {
             circle.setFill(station.isOccupied() ? Color.RED : Color.LIGHTGREEN);
             circle.setStroke(Color.BLACK);
             circle.setStrokeWidth(2);
-            warehousePane.getChildren().addAll(circle, new Text(station.getPosition().getX() - 10, station.getPosition().getY() + 5, "⚡"));
+            warehousePane.getChildren().addAll(circle, new Text(station.getPosition().getX() - 10, station.getPosition().getY() + 5, ""+station.getId()));
         }
 
         // Draw AGVs
@@ -440,16 +438,16 @@ public class AGVWarehouseSystem extends Application {
     private void updateTaskLists() {
         taskQueueView.getItems().clear();
         for (Task task : taskManager.getTaskQueue()) {
-            String icon = task instanceof ChargeTask ? "⚡" : "📦";
-            String priorityIndicator = task.getPriority() >= 8 ? "🔴" : 
-                                      task.getPriority() >= 5 ? "🟡" : "🟢";
-            taskQueueView.getItems().add(priorityIndicator + icon + " Task-" + task.getId() + ": " + task.getName() +
+           
+            String priorityIndicator = task.getPriority() >= 8 ? "high priority" : 
+                                      task.getPriority() >= 5 ? "medium" : "low";
+            taskQueueView.getItems().add(priorityIndicator +  " Task-" + task.getId() + ": " + task.getName() +
                     " [P:" + task.getPriority() + "]");
         }
 
         activeTasksView.getItems().clear();
         for (Task task : taskManager.getActiveTasks()) {
-            String icon = task instanceof ChargeTask ? "⚡" : "📦";
+            String icon = task instanceof ChargeTask ? "charge" : " ";
             activeTasksView.getItems().add(icon + " Task-" + task.getId() + ": " + task.getName() +
                     " [AGV: " + (task.getAssignedAGV() != null ? task.getAssignedAGV().getId() : "None") + "]");
         }
@@ -475,7 +473,7 @@ public class AGVWarehouseSystem extends Application {
             @Override
             public void println(String x) {
                 super.println(x);
-                Platform.runLater(() -> logArea.appendText("❌ " + x + "\n"));
+                Platform.runLater(() -> logArea.appendText(" " + x + "\n"));
             }
         });
     }

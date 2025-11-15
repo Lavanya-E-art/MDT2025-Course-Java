@@ -13,10 +13,10 @@ public class ModelClassesTest {
     private static int testsFailed = 0;
     
     public static void main(String[] args) {
-        System.out.println("\n╔═══════════════════════════════════════════════╗");
-        System.out.println("║  TEST 1: MODEL CLASSES                        ║");
-        System.out.println("║  Tester: Team Member 1                        ║");
-        System.out.println("╚═══════════════════════════════════════════════╝\n");
+        System.out.println("\n ");
+        System.out.println("    TEST 1: MODEL CLASSES                           ");
+        System.out.println("    Tester: Team Member 1                           ");
+        System.out.println(" \n");
         
         testPositionClass();
         testAGVClass();
@@ -31,7 +31,6 @@ public class ModelClassesTest {
     private static void testPositionClass() {
         printTestSection("POSITION CLASS");
         
-        // Test 1: Position creation
         try {
             Position pos = new Position(100, 200);
             assertEquals(100.0, pos.getX(), "Position X coordinate");
@@ -40,18 +39,15 @@ public class ModelClassesTest {
             testFailed("Position creation", e.getMessage());
         }
         
-        // Test 2: Distance calculation
         try {
             Position p1 = new Position(0, 0);
             Position p2 = new Position(3, 4);
             double distance = p1.distanceTo(p2);
-            // Expected: sqrt(3² + 4²) = sqrt(9 + 16) = sqrt(25) = 5
             assertEquals(5.0, distance, "Position distance calculation");
         } catch (Exception e) {
             testFailed("Distance calculation", e.getMessage());
         }
         
-        // Test 3: Position format
         try {
             Position pos = new Position(150, 250);
             String formatted = pos.getPosition();
@@ -65,7 +61,6 @@ public class ModelClassesTest {
     private static void testAGVClass() {
         printTestSection("AGV CLASS");
         
-        // Test 1: AGV initialization
         try {
             AGV agv = new AGV("001", new Position(0, 0));
             assertEquals("001", agv.getId(), "AGV ID");
@@ -76,26 +71,21 @@ public class ModelClassesTest {
             testFailed("AGV initialization", e.getMessage());
         }
         
-        // Test 2: Battery management
         try {
             AGV agv = new AGV("002", new Position(0, 0));
             agv.setBatteryLevel(75.0);
             assertEquals(75.0, agv.getBatteryLevel(), "AGV battery update");
-            
             agv.setBatteryLevel(15.0);
             assertEquals(15.0, agv.getBatteryLevel(), "AGV low battery");
         } catch (Exception e) {
             testFailed("Battery management", e.getMessage());
         }
         
-        // Test 3: Busy status
         try {
             AGV agv = new AGV("003", new Position(0, 0));
-            
             agv.setBusy(true);
             assertTrue(agv.isBusy(), "AGV set to busy");
             assertEquals("BUSY", agv.getStatus(), "AGV status when busy");
-            
             agv.setBusy(false);
             assertFalse(agv.isBusy(), "AGV set to idle");
             assertEquals("IDLE", agv.getStatus(), "AGV status when idle");
@@ -103,14 +93,11 @@ public class ModelClassesTest {
             testFailed("Busy status management", e.getMessage());
         }
         
-        // Test 4: AGV movement
         try {
             AGV agv = new AGV("004", new Position(0, 0));
             Position destination = new Position(100, 100);
-            
             double initialBattery = agv.getBatteryLevel();
             
-            // Start movement in separate thread
             Thread moveThread = new Thread(() -> {
                 try {
                     agv.moveTo(destination);
@@ -119,15 +106,10 @@ public class ModelClassesTest {
                 }
             });
             moveThread.start();
-            
-            // Wait for movement to complete
             moveThread.join();
             
-            // Check final position
             assertEquals(100.0, agv.getPosition().getX(), "AGV final X position");
             assertEquals(100.0, agv.getPosition().getY(), "AGV final Y position");
-            
-            // Battery should decrease after movement
             assertTrue(agv.getBatteryLevel() < initialBattery, "Battery decreased after movement");
             
         } catch (Exception e) {
@@ -139,10 +121,8 @@ public class ModelClassesTest {
     private static void testItemClass() {
         printTestSection("ITEM CLASS");
         
-        // Test 1: Item creation
         try {
             Item item = new Item("ITEM-001", "Frozen Pizza", 2.5, new Date(), -20.0);
-            
             assertEquals("ITEM-001", item.getId(), "Item ID");
             assertEquals("Frozen Pizza", item.getName(), "Item name");
             assertEquals(2.5, item.getWeight(), "Item weight");
@@ -151,7 +131,6 @@ public class ModelClassesTest {
             testFailed("Item creation", e.getMessage());
         }
         
-        // Test 2: Different temperature items
         try {
             Item frozen = new Item("ITEM-002", "Ice Cream", 1.0, new Date(), -20.0);
             Item ambient = new Item("ITEM-003", "Canned Food", 0.5, new Date(), 20.0);
@@ -164,7 +143,6 @@ public class ModelClassesTest {
             testFailed("Item temperature variations", e.getMessage());
         }
         
-        // Test 3: Item equality
         try {
             Item item1 = new Item("ITEM-005", "Test", 1.0, new Date(), 20.0);
             Item item2 = new Item("ITEM-005", "Test", 1.0, new Date(), 20.0);
@@ -181,21 +159,17 @@ public class ModelClassesTest {
     private static void testChargingStationClass() {
         printTestSection("CHARGING STATION CLASS");
         
-        // Test 1: Station initialization
         try {
             ChargingStation station = new ChargingStation("CS-001", new Position(200, 700));
-            
             assertEquals("CS-001", station.getId(), "Station ID");
             assertFalse(station.isOccupied(), "Station initially available");
         } catch (Exception e) {
             testFailed("Station initialization", e.getMessage());
         }
         
-        // Test 2: Single AGV charging
         try {
             ChargingStation station = new ChargingStation("CS-002", new Position(200, 700));
             AGV agv = new AGV("AGV-001", new Position(0, 0));
-            
             boolean canCharge = station.chargeAGV(agv);
             assertTrue(canCharge, "AGV can charge at available station");
             assertTrue(station.isOccupied(), "Station occupied after charging starts");
@@ -203,7 +177,6 @@ public class ModelClassesTest {
             testFailed("Single AGV charging", e.getMessage());
         }
         
-        // Test 3: Multiple AGV attempt (should fail)
         try {
             ChargingStation station = new ChargingStation("CS-003", new Position(200, 700));
             AGV agv1 = new AGV("AGV-001", new Position(0, 0));
@@ -218,7 +191,6 @@ public class ModelClassesTest {
             testFailed("Multiple AGV charging prevention", e.getMessage());
         }
         
-        // Test 4: Station release
         try {
             ChargingStation station = new ChargingStation("CS-004", new Position(200, 700));
             AGV agv = new AGV("AGV-001", new Position(0, 0));
@@ -236,6 +208,7 @@ public class ModelClassesTest {
     // ========== TEST TASK CLASSES ==========
     private static void testTaskClasses() {
         printTestSection("TASK CLASSES (Task, TransportTask, ChargeTask)");
+printTestSection("TASK CLASSES (Task, TransportTask, ChargeTask)");
         
         // Test 1: TransportTask creation and properties
         try {
@@ -373,9 +346,9 @@ public class ModelClassesTest {
     // ========== HELPER METHODS ==========
     
     private static void printTestSection(String section) {
-        System.out.println("\n┌─────────────────────────────────────────────┐");
-        System.out.println("│ " + String.format("%-43s", section) + " │");
-        System.out.println("└─────────────────────────────────────────────┘");
+        System.out.println("\n ");
+        System.out.println("   " + String.format("%-46s", section) + "   ");
+        System.out.println(" ");
     }
     
     private static void assertEquals(Object expected, Object actual, String testName) {
@@ -419,25 +392,24 @@ public class ModelClassesTest {
     }
     
     private static void testPassed(String testName) {
-        System.out.println("  ✅ PASS: " + testName);
+        System.out.println("  PASS: " + testName);
         testsPassed++;
     }
     
     private static void testFailed(String testName, String reason) {
-        System.out.println("  ❌ FAIL: " + testName);
-        System.out.println("     → " + reason);
+        System.out.println("  FAIL: " + testName);
+        System.out.println("       " + reason);
         testsFailed++;
     }
     
     private static void printSummary() {
-        System.out.println("\n╔═══════════════════════════════════════════════╗");
-        System.out.println("║  TEST SUMMARY - MODEL CLASSES                 ║");
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.println("║  ✅ Tests Passed: " + String.format("%-28s", testsPassed) + "║");
-        System.out.println("║  ❌ Tests Failed: " + String.format("%-28s", testsFailed) + "║");
+        System.out.println("\n ");
+        System.out.println("    TEST SUMMARY - MODEL CLASSES                   ");
+        System.out.println("    Tests Passed: " + testsPassed);
+        System.out.println("    Tests Failed: " + testsFailed);
         int total = testsPassed + testsFailed;
         int successRate = total > 0 ? (100 * testsPassed / total) : 0;
-        System.out.println("║  📊 Success Rate: " + successRate + "%                          ║");
-        System.out.println("╚═══════════════════════════════════════════════╝\n");
+        System.out.println("    Success Rate: " + successRate + "%");
+        System.out.println(" \n");
     }
 }

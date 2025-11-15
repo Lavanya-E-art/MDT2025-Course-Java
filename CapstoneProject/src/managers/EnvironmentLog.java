@@ -24,9 +24,9 @@ public class EnvironmentLog extends SystemLog {
             logWriter = new BufferedWriter(new FileWriter(logFilePath, true));
             // Write the header section at the top of the log file
             writeHeader();
-            System.out.println("📝 Environment Log initialized: " + logFilePath);
+            System.out.println(" Environment Log initialized: " + logFilePath);
         } catch (IOException e) {
-            System.err.println("❌ Error initializing Environment log: " + e.getMessage());
+            System.err.println(" Error initializing Environment log: " + e.getMessage());
         }
     }
     
@@ -52,7 +52,7 @@ public class EnvironmentLog extends SystemLog {
      */
     
     public synchronized void logTemperatureAlert(String zoneName, double temperature) {
-        String log = String.format("%s 🌡️ TEMP ALERT - %s: %.1f°C (Out of range!)",
+        String log = String.format("%s  TEMP ALERT - %s: %.1f�C (Out of range!)",
             getTimestamp(), zoneName, temperature);
         writeToFile(log);
         System.err.println(log); // highlight alerts in console
@@ -62,7 +62,7 @@ public class EnvironmentLog extends SystemLog {
      * Records the movement of an item between two zones.
      */
     public synchronized void logItemTransport(String itemName, String from, String to) {
-        String log = String.format("%s 📦 TRANSPORT - %s: %s → %s",
+        String log = String.format("%s  TRANSPORT - %s: %s � %s",
             getTimestamp(), itemName, from, to);
         writeToFile(log);
     }
@@ -72,7 +72,7 @@ public class EnvironmentLog extends SystemLog {
      */
     
     public synchronized void logStorageEvent(String event, String details) {
-        String log = String.format("%s 🏭 STORAGE - %s: %s",
+        String log = String.format("%s  STORAGE - %s: %s",
             getTimestamp(), event, details);
         writeToFile(log);
     }

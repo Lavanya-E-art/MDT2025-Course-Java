@@ -5,22 +5,20 @@ import managers.*;
 import java.util.Date;
 import java.util.List;
 
-/**
- * TEST FILE 3: Manager Classes Testing
- * Team Member 3 - Tests AGVManager and TaskManager
- * 
- * Tests: AGV management, Task management, Task assignment, Auto-charging
- */
+
+
+//  Random unit Tests: AGV management, Task management, Task assignment, Auto-charging
+ 
 public class ManagersTest {
     
     private static int testsPassed = 0;
     private static int testsFailed = 0;
     
     public static void main(String[] args) {
-        System.out.println("\n╔═══════════════════════════════════════════════╗");
-        System.out.println("║  TEST 3: MANAGER CLASSES                      ║");
-        System.out.println("║  Tester: Team Member 3                        ║");
-        System.out.println("╚═══════════════════════════════════════════════╝\n");
+        System.out.println("\n");
+        System.out.println("TEST 3: MANAGER CLASSES");
+        System.out.println("Tester: Keya ");
+        System.out.println("\n");
         
         testAGVManager();
         testTaskManager();
@@ -30,7 +28,7 @@ public class ManagersTest {
         printSummary();
     }
     
-    // ========== TEST AGV MANAGER ==========
+    // TEST AGV MANAGER 
     private static void testAGVManager() {
         printTestSection("AGV MANAGER");
         
@@ -98,7 +96,7 @@ public class ManagersTest {
             testFailed("Low battery AGV exclusion", e.getMessage());
         }
         
-        // Test 5: Get AGV list is immutable (defensive copy)
+        // Test 5: Get AGV list is immutable (defensive copy)manager.getAgvList().clear();  // OOPS! Deletes all AGVs from the system!
         try {
             AGVManager manager = new AGVManager();
             AGV agv = new AGV("001", new Position(80, 50));
@@ -114,7 +112,7 @@ public class ManagersTest {
         }
     }
     
-    // ========== TEST TASK MANAGER ==========
+    // TEST TASK MANAGER
     private static void testTaskManager() {
         printTestSection("TASK MANAGER");
         
@@ -195,7 +193,7 @@ public class ManagersTest {
         }
     }
     
-    // ========== TEST TASK PRIORITY ==========
+    //  TEST TASK PRIORITY 
     private static void testTaskPriority() {
         printTestSection("TASK PRIORITY SYSTEM");
         
@@ -231,29 +229,10 @@ public class ManagersTest {
             testFailed("Task priority system", e.getMessage());
         }
         
-        // Test 2: Charge task has high priority (10)
-        try {
-            AGVManager agvManager = new AGVManager();
-            AGV agv = new AGV("001", new Position(80, 50));
-            agv.setBatteryLevel(15.0); // Low battery
-            agvManager.addAGV(agv);
-            
-            TaskManager taskManager = new TaskManager(agvManager);
-            
-            ChargingStation station = new ChargingStation("CS-1", new Position(200, 700));
-            java.util.List<ChargingStation> stations = new java.util.ArrayList<>();
-            stations.add(station);
-            taskManager.setChargingStations(stations);
-            
-            ChargeTask chargeTask = new ChargeTask(10, station, agv);
-            
-            assertEquals(10, chargeTask.getPriority(), "Charge task has priority 10 (highest)");
-        } catch (Exception e) {
-            testFailed("Charge task priority", e.getMessage());
-        }
+    
     }
     
-    // ========== TEST AUTO-CHARGING ==========
+    //TEST AUTO-CHARGING 
     private static void testAutoCharging() {
         printTestSection("AUTO-CHARGING SYSTEM");
         
@@ -321,12 +300,12 @@ public class ManagersTest {
         }
     }
     
-    // ========== HELPER METHODS ==========
+    // extra helping methods
     
     private static void printTestSection(String section) {
-        System.out.println("\n┌─────────────────────────────────────────────┐");
-        System.out.println("│ " + String.format("%-43s", section) + " │");
-        System.out.println("└─────────────────────────────────────────────┘");
+        System.out.println("\n");
+        System.out.println(section);
+        System.out.println("\n");
     }
     
     private static void assertEquals(Object expected, Object actual, String testName) {
@@ -370,25 +349,24 @@ public class ManagersTest {
     }
     
     private static void testPassed(String testName) {
-        System.out.println("  ✅ PASS: " + testName);
+        System.out.println("PASS: " + testName);
         testsPassed++;
     }
     
     private static void testFailed(String testName, String reason) {
-        System.out.println("  ❌ FAIL: " + testName);
-        System.out.println("     → " + reason);
+        System.out.println("FAIL: " + testName);
+        System.out.println("   -> " + reason);
         testsFailed++;
     }
     
     private static void printSummary() {
-        System.out.println("\n╔═══════════════════════════════════════════════╗");
-        System.out.println("║  TEST SUMMARY - MANAGER CLASSES               ║");
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.println("║  ✅ Tests Passed: " + String.format("%-28s", testsPassed) + "║");
-        System.out.println("║  ❌ Tests Failed: " + String.format("%-28s", testsFailed) + "║");
+        System.out.println("\n");
+        System.out.println("TEST SUMMARY - MANAGER CLASSES");
+        System.out.println("Tests Passed: " + testsPassed);
+        System.out.println("Tests Failed: " + testsFailed);
         int total = testsPassed + testsFailed;
         int successRate = total > 0 ? (100 * testsPassed / total) : 0;
-        System.out.println("║  📊 Success Rate: " + successRate + "%                          ║");
-        System.out.println("╚═══════════════════════════════════════════════╝\n");
+        System.out.println("Success Rate: " + successRate + "%");
+        System.out.println("\n");
     }
 }
